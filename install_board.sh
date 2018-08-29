@@ -23,8 +23,5 @@ cp $SCRIPTPATH/src/am335x_coco_pinmux_data.c $1/packages/ti/starterware/board/am
 # copy board
 cp -rf $SCRIPTPATH/src/cocoAM335x $1/packages/ti/board/src/
 
-echo "Gonna build (path: <$1packages>"
-pushd $1/packages
-source ./pdksetupenv.sh
-make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss
-popd
+echo "Build PDK, recommended command:"
+echo "# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss"

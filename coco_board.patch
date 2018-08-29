@@ -310,3 +310,19 @@
  };
  
  /** \brief Provides defaults for board initialization parameters. */
+--- ./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-08-27 17:20:19.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-08-29 09:39:20.966113780 +0200
+@@ -18,6 +18,13 @@
+ EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
+ endif
+ 
++ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
++EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
++# Enable XDC build for application by providing XDC CFG File per core
++XDC_CFG_FILE_$(CORE) = ../src/sorte_cocoam335x_app.cfg
++EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
++endif
++
+ ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
+ EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
+ # Enable XDC build for application by providing XDC CFG File per core
