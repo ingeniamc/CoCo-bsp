@@ -21,3 +21,7 @@ cp $SCRIPTPATH/scr/am335x_coco_pinmux_data.c $1/packages/ti/starterware/board/am
 
 # copy board
 cp -rf $SCRIPTPATH/scr/cocoAM335x $1/packages/ti/board/src/
+
+pushd $1/packages
+make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss
+popd
