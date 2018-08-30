@@ -36,7 +36,7 @@
 #include <ti/starterware/include/hw/soc_am335x.h>
 
 /* UART LLD instance number */
-#define BOARD_UART_INSTANCE             3
+#define BOARD_UART_INSTANCE             (uint16_t)1U
 
 /* McSPI serializer instance */
 #define BOARD_MCSPI_SERIALIZER_INSTANCE 0
@@ -46,13 +46,13 @@
 
 /* LEDs defines */
 #define GPIO_INTR_LED_RED_BASE_ADDR     SOC_GPIO_1_REGS
-#define GPIO_LED_RED_PIN_NUM            (uint16_t)14U
+#define GPIO_LED_RED_PIN_NUM            (uint16_t)30U
 
 #define GPIO_INTR_LED_GRN_BASE_ADDR     SOC_GPIO_0_REGS
-#define GPIO_LED_GRN_PIN_NUM            (uint16_t)30U
+#define GPIO_LED_GRN_PIN_NUM            (uint16_t)20U
 
 /* No of LEDs connected to GPIOs. */
-#define BOARD_GPIO_LED_NUM              (uint16_t)2U
+#define BOARD_GPIO_LED_NUM              (uint16_t)4U
 
 /* Phy defines */
 #define GPIO_PHY_RESET_BASE_ADDR 		SOC_GPIO_2_REGS
