@@ -101,8 +101,8 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
         DEVICE_ID_CONSOLE,                  /* devId */
         0U,                                 /* devInstNum */
         CHIPDB_MOD_ID_UART,                 /* ctrlModId */
-        3U,                                 /* ctrlModInstNum */
-        44U, /* Interrupt Number */         /* ctrlInfo */
+        1U,                                 /* ctrlModInstNum */
+        73U, /* Interrupt Number */         /* ctrlInfo */
         CHIPDB_MOD_ID_INVALID,              /* dataModId */
         INVALID_INST_NUM,                   /* dataModInstNum */
         NULL,                               /* pFnSelectDev */

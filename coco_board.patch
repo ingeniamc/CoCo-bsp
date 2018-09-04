@@ -163,7 +163,146 @@
  endif
  
  ifeq ($(BOARD),$(filter $(BOARD), evmAM437x idkAM437x skAM437x))
---- ./pdk_am335x_1_0_8/packages/ti/build/Rules.make	2018-08-27 14:53:54.826750780 +0200
+--- ./pdk_am335x_1_0_8/packages/ti/drv/uart/makefile	2017-09-28 01:37:52.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/uart/makefile	2018-08-31 11:25:32.924596970 +0200
+@@ -36,7 +36,7 @@
+ 
+ lib_$(COMP)_BUILD_DEPENDENCY = soc
+ 
+-$(COMP)_DOXYGEN_SUPPORT = yes
++$(COMP)w = yes
+ 
+ include $(PDK_INSTALL_PATH)/ti/build/comp_top.mk
+ 
+--- ./pdk_am335x_1_0_8/packages/ti/drv/uart/soc/am335x/UART_soc.c	2017-09-28 01:37:52.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/uart/soc/am335x/UART_soc.c	2018-08-31 14:28:12.378718998 +0200
+@@ -82,7 +82,7 @@
+     },
+     {
+         SOC_UART_1_REGS,
+-        105,
++        73,
+         0,
+         48000000U,
+         CSL_EDMA3_CHA_UART1_RX,
+--- ./pdk_am335x_1_0_8/packages/ti/drv/gpmc/gpmc_component.mk	2017-09-28 01:37:51.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/gpmc/gpmc_component.mk	2018-08-27 15:33:01.427106627 +0200
+@@ -42,7 +42,7 @@
+ ifeq ($(gpmc_component_make_include), )
+ 
+ # under other list
+-drvgpmc_BOARDLIST       = icev2AM335x evmAM437x
++drvgpmc_BOARDLIST       = icev2AM335x evmAM437x cocoAM335x
+ drvgpmc_SOCLIST         = am437x am335x
+ drvgpmc_am437x_CORELIST = a9host
+ drvgpmc_am335x_CORELIST = a8host
+--- ./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/slave/makefile	2017-09-28 01:37:51.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/slave/makefile	2018-08-27 17:20:05.102042293 +0200
+@@ -22,6 +22,14 @@
+ EXT_LIB_$(CORE) += $(pruss_sorte_slave_PATH)/bin/$(SOC)/a8host/REV1/sorte_slave_PRU1.bin
+ endif
+ 
++ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
++EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
++# Enable XDC build for application by providing XDC CFG File per core
++XDC_CFG_FILE_$(CORE) = ../src/sorte_cocoam335x_app.cfg
++EXT_LIB_$(CORE) = $(pruss_sorte_slave_PATH)/bin/$(SOC)/a8host/REV1/sorte_slave_PRU0.bin
++EXT_LIB_$(CORE) += $(pruss_sorte_slave_PATH)/bin/$(SOC)/a8host/REV1/sorte_slave_PRU1.bin
++endif
++
+ ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
+ EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
+ # Enable XDC build for application by providing XDC CFG File per core
+--- ./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2017-09-28 01:37:51.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-08-29 09:39:20.966113780 +0200
+@@ -18,6 +18,13 @@
+ EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
+ endif
+ 
++ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
++EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
++# Enable XDC build for application by providing XDC CFG File per core
++XDC_CFG_FILE_$(CORE) = ../src/sorte_cocoam335x_app.cfg
++EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
++endif
++
+ ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
+ EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
+ # Enable XDC build for application by providing XDC CFG File per core
+--- ./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/main.c	2017-09-28 01:37:51.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/main.c	2018-08-27 16:53:55.756589591 +0200
+@@ -74,7 +74,7 @@
+ #include <ti/drv/pruss/example/apps/sorte/src/ti_pruss_intc_mapping.h>
+ #include <ti/drv/pruss/example/apps/sorte/src/sorte_loc.h>
+ 
+-#if defined(icev2AM335x) || defined(idkAM437x)
++#if defined(icev2AM335x) || defined(cocoAM335x) || defined(idkAM437x)
+ extern uint8_t pru_imem0_rev1_start;
+ extern uint8_t pru_imem0_rev1_end;
+ extern uint8_t pru_imem1_rev1_start;
+@@ -86,7 +86,7 @@
+ extern uint8_t pru_imem1_rev2_end;
+ #endif
+ 
+-#if defined(icev2AM335x)
++#if defined(icev2AM335x) || defined(cocoAM335x)
+ uint32_t pruIcssInstance = PRUICCSS_INSTANCE_ONE;
+ #elif defined(idkAM437x) || defined(idkAM571x) || defined(idkAM572x) || defined(iceK2G)
+ uint32_t pruIcssInstance = PRUICCSS_INSTANCE_TWO;
+@@ -387,7 +387,7 @@
+     int32_t ret;
+     PRUICSS_Config  *pruIcssCfg;
+     Task_Params taskParams;
+-#if defined(icev2AM335x) || defined(idkAM437x)
++#if defined(icev2AM335x) || defined(cocoAM335x) || defined(idkAM437x)
+     cfg = BOARD_INIT_PLL| BOARD_INIT_MODULE_CLOCK |  BOARD_INIT_DDR | BOARD_INIT_ICSS_PINMUX | BOARD_INIT_UART_STDIO | BOARD_INIT_ICSS_ETH_PHY;
+ #else
+     cfg = BOARD_INIT_UART_STDIO | BOARD_INIT_PINMUX_CONFIG | BOARD_INIT_MODULE_CLOCK | BOARD_INIT_ICSS_ETH_PHY;
+--- ./pdk_am335x_1_0_8/packages/ti/drv/pruss/pruss_component.mk	2017-09-28 01:37:51.000000000 +0200
++++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/pruss/pruss_component.mk	2018-08-27 16:45:58.359832536 +0200
+@@ -67,7 +67,7 @@
+ ifeq ($(pruss_component_make_include), )
+ 
+ # under other list
+-drvpruss_BOARDLIST       = icev2AM335x idkAM437x idkAM571x idkAM572x iceK2G
++drvpruss_BOARDLIST       = icev2AM335x cocoAM335x idkAM437x idkAM571x idkAM572x iceK2G
+ drvpruss_SOCLIST         = am572x am571x am437x am335x k2g
+ drvpruss_am572x_CORELIST = c66x a15_0 ipu1_0 pru_0 pru_1
+ drvpruss_k2g_CORELIST    = c66x a15_0 pru_0 pru_1
+@@ -279,11 +279,11 @@
+ export pruss_app_sorte_slave_XDC_CONFIGURO
+ pruss_app_sorte_slave_PKG_LIST = pruss_app_sorte_slave
+ pruss_app_sorte_slave_INCLUDE = $(pruss_app_sorte_slave_PATH)
+-pruss_app_sorte_slave_BOARDLIST = icev2AM335x idkAM437x idkAM571x idkAM572x iceK2G
++pruss_app_sorte_slave_BOARDLIST = icev2AM335x cocoAM335x idkAM437x idkAM571x idkAM572x iceK2G
+ export pruss_app_sorte_slave_BOARDLIST
+ pruss_app_sorte_slave_SOCLIST = $(SOC)
+ export pruss_app_sorte_slave_SOCLIST
+-ifeq ($(BOARD),$(filter $(BOARD), icev2AM335x))
++ifeq ($(BOARD),$(filter $(BOARD), icev2AM335x cocoAM335x))
+ pruss_app_sorte_slave_$(SOC)_CORELIST = a8host 
+ endif
+ ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
+@@ -319,12 +319,16 @@
+ export pruss_app_sorte_master_XDC_CONFIGURO
+ pruss_app_sorte_master_PKG_LIST = pruss_app_sorte_master
+ pruss_app_sorte_master_INCLUDE = $(pruss_app_sorte_master_PATH)
+-pruss_app_sorte_master_BOARDLIST = icev2AM335x idkAM437x idkAM571x idkAM572x iceK2G
++pruss_app_sorte_master_BOARDLIST = icev2AM335x cocoAM335x idkAM437x idkAM571x idkAM572x iceK2G
+ export pruss_app_sorte_master_BOARDLIST
+ pruss_app_sorte_master_SOCLIST = $(SOC)
+ export pruss_app_sorte_master_SOCLIST
+ 
+-ifeq ($(BOARD),$(filter $(BOARD), icev2AM335x))
++ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
++pruss_app_sorte_master_$(SOC)_CORELIST = a8host 
++endif
++
++ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
+ pruss_app_sorte_master_$(SOC)_CORELIST = a8host 
+ endif
+ 
+--- ./pdk_am335x_1_0_8/packages/ti/build/Rules.make	2017-09-28 01:32:51.000000000 +0200
 +++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/build/Rules.make	2018-08-27 16:04:43.764049394 +0200
 @@ -46,7 +46,7 @@
  #                   tda3xx-ar12-alps, tda3xx-ar12-rvp,
@@ -310,19 +449,3 @@
  };
  
  /** \brief Provides defaults for board initialization parameters. */
---- ./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-08-27 17:20:19.000000000 +0200
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-08-29 09:39:20.966113780 +0200
-@@ -18,6 +18,13 @@
- EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
- endif
- 
-+ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
-+EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
-+# Enable XDC build for application by providing XDC CFG File per core
-+XDC_CFG_FILE_$(CORE) = ../src/sorte_cocoam335x_app.cfg
-+EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
-+endif
-+
- ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
- EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
- # Enable XDC build for application by providing XDC CFG File per core

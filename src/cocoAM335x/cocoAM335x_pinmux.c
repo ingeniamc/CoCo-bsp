@@ -58,27 +58,14 @@ Board_STATUS Board_pinmuxConfig (void)
     int32_t status = BOARD_SOK;
 
     /* I2C */
-    // status = PINMUXModuleConfig(CHIPDB_MOD_ID_I2C, 0U, NULL);
-    // if (S_PASS != status)
-    // {
-    //     return BOARD_PINMUX_INVALID_MODE;
-    // }
+    status = PINMUXModuleConfig(CHIPDB_MOD_ID_I2C, 0U, NULL);
+    if (S_PASS != status)
+    {
+        return BOARD_PINMUX_INVALID_MODE;
+    }
 
     /* UART */
-    status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, BOARD_UART_INSTANCE, NULL);
-    // status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, 0U, NULL);
-    // if(S_PASS == status)
-    // {
-    //     status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, 1U, NULL);
-    // }
-    // if(S_PASS == status)
-    // {
-    //     status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, 3U, NULL);
-    // }
-    // if(S_PASS == status)
-    // {
-    //     status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, 4U, NULL);
-    // }
+    status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, 1U, NULL);
 
     /* GPIO */
     if(S_PASS == status)
@@ -103,10 +90,10 @@ Board_STATUS Board_pinmuxConfig (void)
     {
         status = PINMUXModuleConfig(CHIPDB_MOD_ID_MCSPI, 0U, NULL);
     }    
-    // if(S_PASS == status)
-    // {
-    //     status = PINMUXModuleConfig(CHIPDB_MOD_ID_MCSPI, 1U, NULL);
-    // }
+    if(S_PASS == status)
+    {
+        status = PINMUXModuleConfig(CHIPDB_MOD_ID_MCSPI, 1U, NULL);
+    }
 
     /*PRU_ICSS*/
     if((S_PASS == status) && (icssPinMuxFlag == 1U))
@@ -114,25 +101,13 @@ Board_STATUS Board_pinmuxConfig (void)
         status = PINMUXModuleConfig(CHIPDB_MOD_ID_PRU_ICSS, 1U, NULL);
     }
 
-    /* CPSW */
-    if((S_PASS == status) && (icssPinMuxFlag == 0U))
-    {
-        status = PINMUXModuleConfig(CHIPDB_MOD_ID_CPSW, 0U, NULL);
-    }
-
     /* MMCSD */
-    // if(S_PASS == status)
-    // {
-    //     status = PINMUXModuleConfig(CHIPDB_MOD_ID_MMCSD, 0U, NULL);
-    // }
-
-    /*GPMC*/
     if(S_PASS == status)
     {
-        status = PINMUXModuleConfig(CHIPDB_MOD_ID_GPMC, 0U, NULL);
+        status = PINMUXModuleConfig(CHIPDB_MOD_ID_MMCSD, 0U, NULL);
     }
 
-    return BOARD_SOK;
+    return status;
 }
 
 

@@ -241,7 +241,7 @@ static pinmuxPerCfg_t gGpio3PinCfg[] =
        PIN_GMII1_COL, 0, \
        ( \
            PIN_MODE(7) | \
-           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -515,6 +515,46 @@ static pinmuxPerCfg_t gGpio2PinCfg[] =
            ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
        ) \
     },
+    {
+       /* GPIOs2 -> gpio2[18] -> L17 */
+       PIN_GMII1_RXD3, 18, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[19] -> L16 */
+       PIN_GMII1_RXD2, 19, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[20] -> L15 */
+       PIN_GMII1_RXD1, 20, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[21] -> M16 */
+       PIN_GMII1_RXD0, 21, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[23] -> R5 */
+       PIN_LCD_HSYNC, 23, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+       ) \
+    },
     {PINMUX_INVALID_PIN}
 };
 
@@ -587,7 +627,7 @@ static pinmuxModuleCfg_t gI2cPinCfg[] =
 static pinmuxPerCfg_t gPru_icss1PinCfg[] =
 {
     {
-       /* PHY0 and PHY1 -> pr1_mdio_mdclk -> V12 */
+       /* MyMDIO_PRUSS12 -> pr1_mdio_mdclk -> V12 */
        PIN_GPMC_CLK, (uint16_t)PINMUX_SS_PRU_ICSS_MDIO, \
        ( \
            PIN_MODE(5) | \
@@ -595,11 +635,11 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        ) \
     },
     {
-       /* PHY0 and PHY1 -> pr1_mdio_data -> T13 */
+       /* MyMDIO_PRUSS12 -> pr1_mdio_data -> T13 */
        PIN_GPMC_CSN3, (uint16_t)PINMUX_SS_PRU_ICSS_MDIO, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
     {
@@ -607,7 +647,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA0, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(2) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN & ~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -647,7 +687,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA11, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
     {
@@ -655,7 +695,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA10, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN & ~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -663,7 +703,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA9, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN & ~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -671,7 +711,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA8, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
     {
@@ -687,7 +727,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA14, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
     {
@@ -695,7 +735,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA15, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN & ~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -703,7 +743,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA13, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN & ~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -711,7 +751,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_DATA12, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN & ~PIN_PULL_TYPE_SEL)) \
        ) \
     },
     {
@@ -719,7 +759,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_LCD_PCLK, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(2) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
     {
@@ -727,7 +767,7 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
        PIN_GPMC_AD9, (uint16_t)PINMUX_SS_PRU_ICSS_MII0, \
        ( \
            PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
     {
