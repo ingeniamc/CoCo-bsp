@@ -58,8 +58,8 @@
 #define GPIO_PHY_RESET_BASE_ADDR 		SOC_GPIO_2_REGS
 #define GPIO_PHY_RESET_PIN_NUM	 		(uint16_t)5U
 
-#define GPIO_PHY1_DV_BASE_ADDR 			SOC_GPIO_3_REGS
-#define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)4U
+#define GPIO_PHY1_DV_BASE_ADDR 			SOC_GPIO_2_REGS
+#define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)23U
 
 
 /* Port and pin number mask for MMCSD Card Detect pin.
