@@ -1,5 +1,5 @@
 --- ./pdk_am335x_1_0_10/packages/pdksetupenv.bat	2018-03-24 02:33:54.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/pdksetupenv.bat	2018-09-04 11:02:11.650594495 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/pdksetupenv.bat	2018-09-07 09:26:12.863372500 +0200
 @@ -99,7 +99,7 @@
  
  @REM Platforms supported by the PDK
@@ -10,7 +10,7 @@
  @REM PDK SoC and version
  if not defined PDK_SOC set PDK_SOC=am335x
 --- ./pdk_am335x_1_0_10/packages/pdksetupenv.sh	2018-03-24 02:33:54.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/pdksetupenv.sh	2018-09-04 11:02:06.440576732 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/pdksetupenv.sh	2018-09-07 09:25:25.719532800 +0200
 @@ -89,7 +89,7 @@
  fi
  
@@ -21,7 +21,7 @@
  
  # PDK SoC and version
 --- ./pdk_am335x_1_0_10/packages/ti/board/board_cfg.h	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/board_cfg.h	2018-09-04 11:05:16.452235441 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/board_cfg.h	2018-09-07 09:25:25.734461400 +0200
 @@ -44,6 +44,9 @@
  #elif defined (icev2AM335x)
  #include <ti/board/src/icev2AM335x/include/board_cfg.h>
@@ -32,194 +32,19 @@
  #elif defined (iceAMIC110)
  #include <ti/board/src/iceAMIC110/include/board_cfg.h>
  
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/mem/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/mem/makefile	2018-09-04 11:09:14.369077262 +0200
-@@ -92,6 +92,10 @@
- export DEVICE=AM335x
- endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/board_component.mk	2018-03-24 02:45:21.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/board_component.mk	2018-09-07 09:25:25.969865800 +0200
+@@ -66,7 +66,7 @@
+ #
+ ifeq ($(board_component_make_include), )
  
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), bbbAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.bat	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.bat	2018-09-04 11:07:16.755661117 +0200
-@@ -52,6 +52,11 @@
- goto :end
- )
- 
-+IF "%board%" == "cocoAM335x" (
-+echo Done! create_sd script not needed for %board%
-+goto :end
-+)
-+
- IF "%board%" == "skAM335x" (
- echo Done! create_sd script not needed for %board%
- goto :end
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/makefile	2018-09-04 11:08:56.718014810 +0200
-@@ -78,7 +78,7 @@
- export SPISCRIPT=./create_spi.sh
- endif
- 
--ALL_BOARDS = idkAM571x idkAM572x idkAM574x evmAM572x evmK2G iceK2G evmAM335x evmAM437x idkAM437x skAM437x bbbAM335x icev2AM335x skAM335x evmOMAPL137 iceAMIC110
-+ALL_BOARDS = idkAM571x idkAM572x idkAM574x evmAM572x evmK2G iceK2G evmAM335x evmAM437x idkAM437x skAM437x bbbAM335x icev2AM335x cocoAM335x skAM335x evmOMAPL137 iceAMIC110
- 
- idkAM571x_DIAG = dcan eeprom emmc framework framework_loader gmac haptics icss_emac lcd_touchscreen led led_industrial mcspi mem mmcsd pmic qspi timer uart
- idkAM572x_DIAG = dcan eeprom emmc framework framework_loader gmac haptics icss_emac lcd_touchscreen led led_industrial mcspi mem mmcsd pmic qspi uart
-@@ -93,6 +93,7 @@
- skAM437x_DIAG = framework framework_loader eeprom led uart mmcsd mem accelerometer rtc pmic adc button
- bbbAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
- icev2AM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
-+cocoAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
- skAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led accelerometer rtc pmic adc button
- evmOMAPL137_DIAG = mcasp mcasp_audiodc
- iceAMIC110_DIAG = framework framework_loader eeprom uart led mem mcspi ddrless_app
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/uart/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/uart/makefile	2018-09-04 11:10:40.831383166 +0200
-@@ -92,6 +92,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), bbbAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/rtc/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/rtc/makefile	2018-09-04 11:10:35.478364227 +0200
-@@ -52,6 +52,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), idkAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/eeprom/makefile	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/eeprom/makefile	2018-09-04 11:07:42.317751563 +0200
-@@ -80,6 +80,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), idkAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/pmic/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/pmic/makefile	2018-09-04 11:10:04.824255778 +0200
-@@ -80,6 +80,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), evmAM437x)
- export DEVICE=AM437x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/mmcsd/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/mmcsd/makefile	2018-09-04 11:09:51.573208896 +0200
-@@ -72,6 +72,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), evmAM437x)
- export DEVICE=AM437x
- endif
-@@ -88,6 +92,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), bbbAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/framework_loader/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/framework_loader/makefile	2018-09-04 11:08:08.287843453 +0200
-@@ -84,6 +84,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), bbbAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.sh	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.sh	2018-09-04 11:07:29.435705984 +0200
-@@ -59,6 +59,12 @@
-     exit 0
- fi
- 
-+if [ $board = "cocoAM335x" ]
-+then
-+    echo Done! create_sd script not needed for $board!
-+    exit 0
-+fi
-+
- if [ $board = "skAM335x" ]
- then
-     echo Done! create_sd script not needed for $board!
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/framework/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/framework/makefile	2018-09-04 11:07:54.847795897 +0200
-@@ -92,6 +92,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), bbbAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/diag/led/makefile	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/led/makefile	2018-09-04 11:08:25.372903904 +0200
-@@ -92,6 +92,10 @@
- export DEVICE=AM335x
- endif
- 
-+ifeq ($(BOARD), cocoAM335x)
-+export DEVICE=AM335x
-+endif
-+
- ifeq ($(BOARD), skAM335x)
- export DEVICE=AM335x
- endif
---- ./pdk_am335x_1_0_10/packages/ti/board/package.bld	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/package.bld	2018-09-04 11:11:04.458466770 +0200
-@@ -59,6 +59,7 @@
- Pkg.otherFiles[Pkg.otherFiles.length++] = "src/idkAM571x/src_files_idkAM571x.mk";
- Pkg.otherFiles[Pkg.otherFiles.length++] = "src/evmK2G/src_files_evmK2G.mk";
- Pkg.otherFiles[Pkg.otherFiles.length++] = "src/icev2AM335x/src_files_icev2AM335x.mk";
-+Pkg.otherFiles[Pkg.otherFiles.length++] = "src/cocoAM335x/src_files_cocoAM335x.mk";
- Pkg.otherFiles[Pkg.otherFiles.length++] = "src/idkAM437x/src_files_idkAM437x.mk";
- Pkg.otherFiles[Pkg.otherFiles.length++] = "src/evmAM571x/src_files_evmAM571x.mk";
- Pkg.otherFiles[Pkg.otherFiles.length++] = "src/evmOMAPL137/src_files_evmOMAPL137.mk";
+-board_lib_BOARDLIST       = evmAM335x icev2AM335x iceAMIC110 skAM335x bbbAM335x evmAM437x idkAM437x skAM437x evmAM572x idkAM571x idkAM572x evmK2H evmK2K evmK2E evmK2L evmK2G iceK2G \
++board_lib_BOARDLIST       = evmAM335x icev2AM335x cocoAM335x iceAMIC110 skAM335x bbbAM335x evmAM437x idkAM437x skAM437x evmAM572x idkAM571x idkAM572x evmK2H evmK2K evmK2E evmK2L evmK2G iceK2G \
+                             evmC6678 evmC6657 tda2xx-evm evmDRA75x tda2ex-evm evmDRA72x tda3xx-evm evmDRA78x evmOMAPL137 lcdkOMAPL138 idkAM574x
+ board_lib_tda2xx_CORELIST = a15_0 ipu1_0 c66x
+ board_lib_tda2ex_CORELIST = a15_0 ipu1_0 c66x
 --- ./pdk_am335x_1_0_10/packages/ti/board/build/makefile.mk	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/build/makefile.mk	2018-09-04 11:06:09.287422377 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/build/makefile.mk	2018-09-07 09:25:25.954894600 +0200
 @@ -38,20 +38,20 @@
  SRCDIR = . src
  INCDIR = . src
@@ -245,19 +70,8 @@
  include $(PDK_BOARD_COMP_PATH)/src/flash/src_files_flash.mk
  endif
  CFLAGS_LOCAL_$(BOARD) += -D$(BOARD)
---- ./pdk_am335x_1_0_10/packages/ti/board/board_component.mk	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/board_component.mk	2018-09-04 11:05:31.906290118 +0200
-@@ -66,7 +66,7 @@
- #
- ifeq ($(board_component_make_include), )
- 
--board_lib_BOARDLIST       = evmAM335x icev2AM335x iceAMIC110 skAM335x bbbAM335x evmAM437x idkAM437x skAM437x evmAM572x idkAM571x idkAM572x evmK2H evmK2K evmK2E evmK2L evmK2G iceK2G \
-+board_lib_BOARDLIST       = evmAM335x icev2AM335x cocoAM335x iceAMIC110 skAM335x bbbAM335x evmAM437x idkAM437x skAM437x evmAM572x idkAM571x idkAM572x evmK2H evmK2K evmK2E evmK2L evmK2G iceK2G \
-                             evmC6678 evmC6657 tda2xx-evm evmDRA75x tda2ex-evm evmDRA72x tda3xx-evm evmDRA78x evmOMAPL137 lcdkOMAPL138 idkAM574x
- board_lib_tda2xx_CORELIST = a15_0 ipu1_0 c66x
- board_lib_tda2ex_CORELIST = a15_0 ipu1_0 c66x
 --- ./pdk_am335x_1_0_10/packages/ti/board/config.bld	2018-03-24 02:45:21.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/config.bld	2018-09-04 11:06:57.020591288 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/config.bld	2018-09-07 09:25:25.990811200 +0200
 @@ -189,6 +189,22 @@
              "$(PDK_INSTALL_PATH)/ti/board/src/flash/nor/nor.c",
              "$(PDK_INSTALL_PATH)/ti/board/src/flash/nor/gpmc/nor_gpmc.c"]
@@ -288,8 +102,205 @@
 -var boards = [ evmAM335x, icev2AM335x, skAM335x, bbbAM335x, evmAM437x, idkAM437x, skAM437x, evmAM572x, idkAM571x, idkAM572x, evmK2H, evmK2K, evmK2E, evmK2L, evmK2G, evmC6678, evmC6657, evmOMAPL137 idkAM574x ];
 +var boards = [ evmAM335x, icev2AM335x, cocoAM335x, skAM335x, bbbAM335x, evmAM437x, idkAM437x, skAM437x, evmAM572x, idkAM571x, idkAM572x, evmK2H, evmK2K, evmK2E, evmK2L, evmK2G, evmC6678, evmC6657, evmOMAPL137 idkAM574x ];
  
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.bat	2018-03-24 02:45:21.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.bat	2018-09-07 09:27:39.233060500 +0200
+@@ -52,6 +52,11 @@
+ goto :end
+ )
+ 
++IF "%board%" == "cocoAM335x" (
++echo Done! create_sd script not needed for %board%
++goto :end
++)
++
+ IF "%board%" == "skAM335x" (
+ echo Done! create_sd script not needed for %board%
+ goto :end
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.sh	2018-03-24 02:45:21.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/create_sd.sh	2018-09-07 09:25:25.896060300 +0200
+@@ -59,6 +59,12 @@
+     exit 0
+ fi
+ 
++if [ $board = "cocoAM335x" ]
++then
++    echo Done! create_sd script not needed for $board!
++    exit 0
++fi
++
+ if [ $board = "skAM335x" ]
+ then
+     echo Done! create_sd script not needed for $board!
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/eeprom/makefile	2018-03-24 02:45:21.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/eeprom/makefile	2018-09-07 09:25:25.831234600 +0200
+@@ -80,6 +80,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), idkAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/framework/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/framework/makefile	2018-09-07 09:25:25.903009500 +0200
+@@ -92,6 +92,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), bbbAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/framework_loader/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/framework_loader/makefile	2018-09-07 09:25:25.879105100 +0200
+@@ -84,6 +84,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), bbbAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/led/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/led/makefile	2018-09-07 09:25:25.918991300 +0200
+@@ -92,6 +92,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), skAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/makefile	2018-09-07 09:25:25.792340000 +0200
+@@ -78,7 +78,7 @@
+ export SPISCRIPT=./create_spi.sh
+ endif
+ 
+-ALL_BOARDS = idkAM571x idkAM572x idkAM574x evmAM572x evmK2G iceK2G evmAM335x evmAM437x idkAM437x skAM437x bbbAM335x icev2AM335x skAM335x evmOMAPL137 iceAMIC110
++ALL_BOARDS = idkAM571x idkAM572x idkAM574x evmAM572x evmK2G iceK2G evmAM335x evmAM437x idkAM437x skAM437x bbbAM335x icev2AM335x cocoAM335x skAM335x evmOMAPL137 iceAMIC110
+ 
+ idkAM571x_DIAG = dcan eeprom emmc framework framework_loader gmac haptics icss_emac lcd_touchscreen led led_industrial mcspi mem mmcsd pmic qspi timer uart
+ idkAM572x_DIAG = dcan eeprom emmc framework framework_loader gmac haptics icss_emac lcd_touchscreen led led_industrial mcspi mem mmcsd pmic qspi uart
+@@ -93,6 +93,7 @@
+ skAM437x_DIAG = framework framework_loader eeprom led uart mmcsd mem accelerometer rtc pmic adc button
+ bbbAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
+ icev2AM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
++cocoAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
+ skAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led accelerometer rtc pmic adc button
+ evmOMAPL137_DIAG = mcasp mcasp_audiodc
+ iceAMIC110_DIAG = framework framework_loader eeprom uart led mem mcspi ddrless_app
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/mem/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/mem/makefile	2018-09-07 09:25:25.750450000 +0200
+@@ -92,6 +92,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), bbbAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/mmcsd/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/mmcsd/makefile	2018-09-07 09:25:25.862150600 +0200
+@@ -72,6 +72,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), evmAM437x)
+ export DEVICE=AM437x
+ endif
+@@ -88,6 +92,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), bbbAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/pmic/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/pmic/makefile	2018-09-07 09:25:25.846193200 +0200
+@@ -80,6 +80,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), evmAM437x)
+ export DEVICE=AM437x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/rtc/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/rtc/makefile	2018-09-07 09:25:25.815275700 +0200
+@@ -52,6 +52,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), idkAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/diag/uart/makefile	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/diag/uart/makefile	2018-09-07 09:25:25.800285500 +0200
+@@ -92,6 +92,10 @@
+ export DEVICE=AM335x
+ endif
+ 
++ifeq ($(BOARD), cocoAM335x)
++export DEVICE=AM335x
++endif
++
+ ifeq ($(BOARD), bbbAM335x)
+ export DEVICE=AM335x
+ endif
+--- ./pdk_am335x_1_0_10/packages/ti/board/package.bld	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/package.bld	2018-09-07 09:25:25.938947500 +0200
+@@ -59,6 +59,7 @@
+ Pkg.otherFiles[Pkg.otherFiles.length++] = "src/idkAM571x/src_files_idkAM571x.mk";
+ Pkg.otherFiles[Pkg.otherFiles.length++] = "src/evmK2G/src_files_evmK2G.mk";
+ Pkg.otherFiles[Pkg.otherFiles.length++] = "src/icev2AM335x/src_files_icev2AM335x.mk";
++Pkg.otherFiles[Pkg.otherFiles.length++] = "src/cocoAM335x/src_files_cocoAM335x.mk";
+ Pkg.otherFiles[Pkg.otherFiles.length++] = "src/idkAM437x/src_files_idkAM437x.mk";
+ Pkg.otherFiles[Pkg.otherFiles.length++] = "src/evmAM571x/src_files_evmAM571x.mk";
+ Pkg.otherFiles[Pkg.otherFiles.length++] = "src/evmOMAPL137/src_files_evmOMAPL137.mk";
+--- ./pdk_am335x_1_0_10/packages/ti/board/src/flash/nor/gpmc/nor_gpmc.h	2018-03-24 02:45:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/src/flash/nor/gpmc/nor_gpmc.h	2018-09-07 09:28:32.431635700 +0200
+@@ -51,7 +51,7 @@
+ #include <ti/board/src/flash/nor/nor.h>
+ #include <ti/drv/gpmc/GPMC.h>
+ 
+-#if defined (icev2AM335x)
++#if defined (icev2AM335x) || defined (cocoAM335x)
+ #include <ti/board/src/flash/nor/device/m29w160eb.h>
+ #include <ti/drv/gpmc/src/V1/GPMC_v1.h>
+ #endif
 --- ./pdk_am335x_1_0_10/packages/ti/board/src/flash/src_files_flash.mk	2018-03-24 02:45:23.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/src/flash/src_files_flash.mk	2018-09-04 11:18:32.306051400 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/src/flash/src_files_flash.mk	2018-09-07 09:25:26.006763800 +0200
 @@ -43,6 +43,13 @@
  SRCS_COMMON += nor.c nor_gpmc.c
  endif
@@ -304,52 +315,8 @@
  ifeq ($(BOARD),$(filter $(BOARD), evmAM437x))
  SRCDIR += src/flash/nand src/flash/nand/device src/flash/nand/gpmc
  INCDIR += src/flash/nand src/flash/nand/device src/flash/nand/gpmc
---- ./pdk_am335x_1_0_10/packages/ti/board/src/flash/nor/nor.c	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/src/flash/nor/nor.c	2018-09-04 11:18:12.511981364 +0200
-@@ -62,7 +62,7 @@
-         NULL
-     }
- };
--#elif defined (icev2AM335x)
-+#elif defined (icev2AM335x) || defined (cocoAM335x)
- NOR_Config Nor_config[BOARD_FLASH_NOR_INTF_MAX] =
- {
-     {
---- ./pdk_am335x_1_0_10/packages/ti/board/src/flash/nor/gpmc/nor_gpmc.h	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/src/flash/nor/gpmc/nor_gpmc.h	2018-09-04 11:17:56.991926449 +0200
-@@ -39,19 +39,19 @@
-  *        prototypes used for GPMC interface for NOR flash.
-  *
-  *****************************************************************************/
--#ifndef NOR_GPMC_H_
--#define NOR_GPMC_H_
--
--#ifdef __cplusplus
--extern "C" {
--#endif
--
--#include <string.h>
--
--#include <ti/board/src/flash/nor/nor.h>
-+#ifndef NOR_GPMC_H_
-+#define NOR_GPMC_H_
-+
-+#ifdef __cplusplus
-+extern "C" {
-+#endif
-+
-+#include <string.h>
-+
-+#include <ti/board/src/flash/nor/nor.h>
- #include <ti/drv/gpmc/GPMC.h>
- 
--#if defined (icev2AM335x)
-+#if defined (icev2AM335x) || defined (cocoAM335x)
- #include <ti/board/src/flash/nor/device/m29w160eb.h>
- #include <ti/drv/gpmc/src/V1/GPMC_v1.h>
- #endif
 --- ./pdk_am335x_1_0_10/packages/ti/board/src/src_files_starterware.mk	2018-03-24 02:45:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/board/src/src_files_starterware.mk	2018-09-04 11:19:07.818177048 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/src/src_files_starterware.mk	2018-09-07 09:25:26.059623500 +0200
 @@ -47,7 +47,7 @@
              $(PDK_INSTALL_PATH)/ti/starterware/utils \
              $(PDK_INSTALL_PATH)/ti/starterware/soc
@@ -370,8 +337,29 @@
      ifeq ($(BOARD),$(filter $(BOARD), iceAMIC110))
          SRCS_COMMON += am335x_amic11x_pinmux_data.c
      endif
+--- ./pdk_am335x_1_0_10/packages/ti/build/makerules/build_config.mk	2018-03-24 02:33:53.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/build/makerules/build_config.mk	2018-09-07 09:25:26.180299600 +0200
+@@ -83,6 +83,7 @@
+ CFLAGS_GLOBAL_evmC6678      = -DSOC_C6678
+ CFLAGS_GLOBAL_evmAM335x     = -DSOC_AM335x -DevmAM335x
+ CFLAGS_GLOBAL_icev2AM335x   = -DSOC_AM335x -Dicev2AM335x
++CFLAGS_GLOBAL_cocoAM335x    = -DSOC_AM335x -DcocoAM335x
+ CFLAGS_GLOBAL_iceAMIC110    = -DSOC_AM335x -DiceAMIC110
+ CFLAGS_GLOBAL_skAM335x      = -DSOC_AM335x -DskAM335x
+ CFLAGS_GLOBAL_bbbAM335x     = -DSOC_AM335x -DbbbAM335x
+--- ./pdk_am335x_1_0_10/packages/ti/build/makerules/platform.mk	2018-03-24 02:33:53.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/build/makerules/platform.mk	2018-09-07 09:25:26.194259900 +0200
+@@ -142,7 +142,7 @@
+ endif
+ 
+ # am335x
+-ifeq ($(BOARD),$(filter $(BOARD),  evmAM335x icev2AM335x iceAMIC110 skAM335x bbbAM335x))
++ifeq ($(BOARD),$(filter $(BOARD),  evmAM335x icev2AM335x cocoAM335x iceAMIC110 skAM335x bbbAM335x))
+  SOC = am335x
+ endif
+ 
 --- ./pdk_am335x_1_0_10/packages/ti/drv/gpio/test/led_blink/src/GPIO_board.h	2018-03-24 02:43:02.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/gpio/test/led_blink/src/GPIO_board.h	2018-09-04 11:20:37.679494995 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/drv/gpio/test/led_blink/src/GPIO_board.h	2018-09-07 09:25:26.076577200 +0200
 @@ -85,7 +85,7 @@
  
  #if defined (evmAM572x) || defined (idkAM571x) || \
@@ -381,19 +369,8 @@
  #define GPIO_BASE_ADDR GPIO_INTR_LED_BASE_ADDR
  #define GPIO_LED_PIN   GPIO_LED_PIN_NUM
  #endif
---- ./pdk_am335x_1_0_10/packages/ti/drv/icss_emac/test/src/main_a8.c	2018-03-24 02:44:10.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/icss_emac/test/src/main_a8.c	2018-09-04 11:23:31.648102618 +0200
-@@ -551,7 +551,7 @@
- 
-     /* Switch the ICSS clock to 225MHz.
-      * Limit it to EMAC switch tests as TTS verification depends on 200MHz clock */
--#if defined(icev2AM335x) || defined(iceAMIC110)
-+#if defined(icev2AM335x) || defined(iceAMIC110) || defined(cocoAM335x)
- #ifdef SWITCH_EMAC
-     Board_PLLICSSConfig(BOARD_ICSS_PLL_CLK_225MHZ);
- #endif
 --- ./pdk_am335x_1_0_10/packages/ti/drv/gpmc/gpmc_component.mk	2018-03-24 02:43:01.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/gpmc/gpmc_component.mk	2018-09-04 11:20:50.088538905 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/drv/gpmc/gpmc_component.mk	2018-09-07 09:25:26.107494400 +0200
 @@ -42,7 +42,7 @@
  ifeq ($(gpmc_component_make_include), )
  
@@ -403,8 +380,24 @@
  drvgpmc_SOCLIST         = am437x am335x
  drvgpmc_am437x_CORELIST = a9host
  drvgpmc_am335x_CORELIST = a8host
+--- ./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-03-24 02:43:01.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-09-07 09:25:26.136418500 +0200
+@@ -18,6 +18,13 @@
+ EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
+ endif
+ 
++ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
++EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
++# Enable XDC build for application by providing XDC CFG File per core
++XDC_CFG_FILE_$(CORE) = ../src/sorte_cocoam335x_app.cfg
++EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
++endif
++
+ ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
+ EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
+ # Enable XDC build for application by providing XDC CFG File per core
 --- ./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/slave/makefile	2018-03-24 02:43:01.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/slave/makefile	2018-09-04 16:49:25.076957253 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/slave/makefile	2018-09-07 09:25:26.122453400 +0200
 @@ -22,6 +22,14 @@
  EXT_LIB_$(CORE) += $(pruss_sorte_slave_PATH)/bin/$(SOC)/a8host/REV1/sorte_slave_PRU1.bin
  endif
@@ -420,53 +413,8 @@
  ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
  EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
  # Enable XDC build for application by providing XDC CFG File per core
---- ./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-03-24 02:43:01.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/master/makefile	2018-09-04 16:49:05.791903471 +0200
-@@ -18,6 +18,13 @@
- EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
- endif
- 
-+ifeq ($(BOARD),$(filter $(BOARD), cocoAM335x))
-+EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
-+# Enable XDC build for application by providing XDC CFG File per core
-+XDC_CFG_FILE_$(CORE) = ../src/sorte_cocoam335x_app.cfg
-+EXT_LIB_$(CORE) = $(pruss_sorte_master_PATH)/bin/$(SOC)/a8host/REV1/sorte_master_PRU0.bin
-+endif
-+
- ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
- EXTERNAL_LNKCMD_FILE_LOCAL = ${PDK_INSTALL_PATH}/ti/build/pruss/lnk_a8_a9_a15_REV1.cmd
- # Enable XDC build for application by providing XDC CFG File per core
---- ./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/src/main.c	2018-03-24 02:43:01.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/example/apps/sorte/src/main.c	2018-09-04 16:45:38.014324007 +0200
-@@ -74,7 +74,7 @@
- #include <ti/drv/pruss/example/apps/sorte/src/ti_pruss_intc_mapping.h>
- #include <ti/drv/pruss/example/apps/sorte/src/sorte_loc.h>
- 
--#if defined(icev2AM335x) || defined(idkAM437x)
-+#if defined(icev2AM335x) || defined(idkAM437x) || defined (cocoAM335x)
- extern uint8_t pru_imem0_rev1_start;
- extern uint8_t pru_imem0_rev1_end;
- extern uint8_t pru_imem1_rev1_start;
-@@ -86,7 +86,7 @@
- extern uint8_t pru_imem1_rev2_end;
- #endif
- 
--#if defined(icev2AM335x)
-+#if defined(icev2AM335x) || defined (cocoAM335x)
- uint32_t pruIcssInstance = PRUICCSS_INSTANCE_ONE;
- #elif defined(idkAM437x) || defined(idkAM571x) || defined(idkAM572x) || defined(iceK2G) || defined(idkAM574x)
- uint32_t pruIcssInstance = PRUICCSS_INSTANCE_TWO;
-@@ -402,7 +402,7 @@
-     int32_t ret;
-     PRUICSS_Config  *pruIcssCfg;
-     Task_Params taskParams;
--#if defined(icev2AM335x) || defined(idkAM437x)
-+#if defined(icev2AM335x) || defined(idkAM437x) || defined (cocoAM335x)
-     cfg = BOARD_INIT_PLL| BOARD_INIT_MODULE_CLOCK |  BOARD_INIT_DDR | BOARD_INIT_ICSS_PINMUX | BOARD_INIT_UART_STDIO | BOARD_INIT_ICSS_ETH_PHY;
- #else
-     cfg = BOARD_INIT_UART_STDIO | BOARD_INIT_PINMUX_CONFIG | BOARD_INIT_MODULE_CLOCK | BOARD_INIT_ICSS_ETH_PHY;
 --- ./pdk_am335x_1_0_10/packages/ti/drv/pruss/pruss_component.mk	2018-03-24 02:43:01.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/pruss_component.mk	2018-09-04 16:31:15.514783021 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/drv/pruss/pruss_component.mk	2018-09-07 09:25:26.166337700 +0200
 @@ -67,7 +67,7 @@
  ifeq ($(pruss_component_make_include), )
  
@@ -517,29 +465,40 @@
  ifeq ($(BOARD),$(filter $(BOARD), idkAM437x))
  pruss_app_sorte_master_$(SOC)_CORELIST = a9host 
  endif
---- ./pdk_am335x_1_0_10/packages/ti/build/makerules/build_config.mk	2018-03-24 02:33:53.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/build/makerules/build_config.mk	2018-09-04 11:19:38.897287007 +0200
-@@ -83,6 +83,7 @@
- CFLAGS_GLOBAL_evmC6678      = -DSOC_C6678
- CFLAGS_GLOBAL_evmAM335x     = -DSOC_AM335x -DevmAM335x
- CFLAGS_GLOBAL_icev2AM335x   = -DSOC_AM335x -Dicev2AM335x
-+CFLAGS_GLOBAL_cocoAM335x    = -DSOC_AM335x -DcocoAM335x
- CFLAGS_GLOBAL_iceAMIC110    = -DSOC_AM335x -DiceAMIC110
- CFLAGS_GLOBAL_skAM335x      = -DSOC_AM335x -DskAM335x
- CFLAGS_GLOBAL_bbbAM335x     = -DSOC_AM335x -DbbbAM335x
---- ./pdk_am335x_1_0_10/packages/ti/build/makerules/platform.mk	2018-03-24 02:33:53.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/build/makerules/platform.mk	2018-09-04 11:19:51.682332237 +0200
-@@ -142,7 +142,7 @@
+--- ./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/am335x_pinmux.h	2018-03-24 02:11:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/am335x_pinmux.h	2018-09-07 09:25:26.224162500 +0200
+@@ -324,6 +324,11 @@
+            manual deviation from IceV2, if applicable. */
+ extern pinmuxBoardCfg_t gAMIC11xPinmuxData[];
+ 
++/** \brief Pinmux configuration data for the board. Auto-generated from
++           Pinmux tool. */
++extern pinmuxBoardCfg_t gCocoPinmuxData[];
++
++
+ #ifdef __cplusplus
+ }
+ #endif /* __cplusplus */
+--- ./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/filelist.mk	2018-03-24 02:11:22.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/filelist.mk	2018-09-07 09:25:26.243108500 +0200
+@@ -49,6 +49,7 @@
+                 am335x_icev1.c \
+                 am335x_icev2.c \
+                 am335x_amic110.c \
++                am335x_coco.c \
+                 am335x_custom.c
  endif
  
- # am335x
--ifeq ($(BOARD),$(filter $(BOARD),  evmAM335x icev2AM335x iceAMIC110 skAM335x bbbAM335x))
-+ifeq ($(BOARD),$(filter $(BOARD),  evmAM335x icev2AM335x cocoAM335x iceAMIC110 skAM335x bbbAM335x))
-  SOC = am335x
+@@ -61,6 +62,7 @@
+                 am335x_beagleboneblack_pinmux_data.c \
+                 am335x_icev1_pinmux_data.c \
+                 am335x_icev2_pinmux_data.c \
++                am335x_coco_pinmux_data.c \
+                 am335x_amic11x_pinmux_data.c
+ SRCS_COMMON +=  am335x_lcd4_dcard.c 
  endif
- 
 --- ./pdk_am335x_1_0_10/packages/ti/starterware/include/board.h	2018-03-24 02:11:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/starterware/include/board.h	2018-09-04 11:32:11.256914033 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/starterware/include/board.h	2018-09-07 09:25:26.210219600 +0200
 @@ -117,8 +117,10 @@
      BOARD_AMIC110 = 0x9U,
      /**< AMIC110 ICE board */
@@ -572,78 +531,3 @@
  /** This is added to avoid lcd_device.h dependency **/
  typedef struct lcdDeviceBoardData lcdDeviceBoardData_t;
  
---- ./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/am335x_pinmux.h	2018-03-24 02:11:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/am335x_pinmux.h	2018-09-04 14:50:43.000000000 +0200
-@@ -324,6 +243,11 @@
-            manual deviation from IceV2, if applicable. */
- extern pinmuxBoardCfg_t gAMIC11xPinmuxData[];
- 
-+/** \brief Pinmux configuration data for the board. Auto-generated from
-+           Pinmux tool. */
-+extern pinmuxBoardCfg_t gCocoPinmuxData[];
-+
-+
- #ifdef __cplusplus
- }
- #endif /* __cplusplus */
---- ./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/filelist.mk	2018-03-24 02:11:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/filelist.mk	2018-09-04 11:30:20.496527917 +0200
-@@ -49,6 +49,7 @@
-                 am335x_icev1.c \
-                 am335x_icev2.c \
-                 am335x_amic110.c \
-+                am335x_coco.c \
-                 am335x_custom.c
- endif
- 
-@@ -61,6 +62,7 @@
-                 am335x_beagleboneblack_pinmux_data.c \
-                 am335x_icev1_pinmux_data.c \
-                 am335x_icev2_pinmux_data.c \
-+                am335x_coco_pinmux_data.c \
-                 am335x_amic11x_pinmux_data.c
- SRCS_COMMON +=  am335x_lcd4_dcard.c 
- endif
---- ./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/board_am335x.c	2018-03-24 02:11:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/starterware/board/am335x/board_am335x.c	2018-09-04 16:32:09.641942684 +0200
-@@ -63,6 +63,7 @@
- #include "am335x_beagleboneblack.h"
- #include "am335x_icev1.h"
- #include "am335x_icev2.h"
-+#include "am335x_coco.h"
- #include "am335x_amic110.h"
- #include "am335x_custom.h"
- 
-@@ -184,6 +185,7 @@
-     &gBoardAm335xIceV2Data, /*BOARD_ICE ver 2*/
-     &gBoardAm335xAMIC110Data, /* AMIC110 */
-     &gBoardAm335xCustomData, /* BOARD_CUSTOM */
-+    &gBoardAm335xCocoData
- };
- #else 
- static const boardData_t *gpBoardAm335xData [BOARD_MAX + 1U]= {
-@@ -337,6 +339,12 @@
-                     {
-                         boardId = BOARD_AMIC110;
-                     }
-+                    else if (strncmp(BOARD_AM335X_COCO_BOARD_NAME,
-+                                    (char *)gBoardDataEeprom.boardName,
-+                                    BOARD_EEPROM_BOARD_NAME_SIZE) == 0U)
-+                    {
-+                        boardId = BOARD_COCO;
-+                    }
-                     else
-                     {
-                         /* If the board is not one of these, then the board
---- ./pdk_am335x_1_0_10/packages/ti/starterware/board/board.c	2018-03-24 02:11:22.000000000 +0100
-+++ /home/jcastro-lin/ti/./pdk_am335x_1_0_10/packages/ti/starterware/board/board.c	2018-09-04 11:30:49.713629769 +0200
-@@ -126,7 +126,8 @@
-     {BOARD_ICEV1,           "ICE ver 1"       },
-     {BOARD_ICEV2,           "ICE Ver 2"       },
-     {BOARD_AMIC110,         "AMIC110"         },
--    {BOARD_CUSTOM,          "Custom"          }
-+    {BOARD_CUSTOM,          "Custom"          },
-+    {BOARD_COCO,            "COCO"            },
- };
- #else
- static boardIdString_t  gBoardIdStrTable[] =

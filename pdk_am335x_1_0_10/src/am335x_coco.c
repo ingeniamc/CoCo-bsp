@@ -50,7 +50,7 @@
 #include "error.h"
 #include "board_am335x.h"
 #include "am335x_pinmux.h"
-#include "am335x_icev2.h"
+#include "am335x_coco.h"
 #include "gpio.h"
 #include "delay_utils.h"
 #include "prcm.h"
