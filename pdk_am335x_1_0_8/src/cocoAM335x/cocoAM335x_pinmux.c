@@ -1,5 +1,5 @@
 /**
- *   @file  cocoam335x_pinmux.c
+ *   @file  icev2am335x_pinmux.c
  *
  *   @brief
  *      This is the pin configuration for ICE V2 AM335x.
@@ -57,12 +57,12 @@ Board_STATUS Board_pinmuxConfig (void)
 {
     int32_t status = BOARD_SOK;
 
-    /* I2C */
-    status = PINMUXModuleConfig(CHIPDB_MOD_ID_I2C, 0U, NULL);
-    if (S_PASS != status)
-    {
-        return BOARD_PINMUX_INVALID_MODE;
-    }
+    // /* I2C */
+    // status = PINMUXModuleConfig(CHIPDB_MOD_ID_I2C, 0U, NULL);
+    // if (S_PASS != status)
+    // {
+    //     return status;
+    // }
 
     /* UART */
     status = PINMUXModuleConfig(CHIPDB_MOD_ID_UART, 1U, NULL);
