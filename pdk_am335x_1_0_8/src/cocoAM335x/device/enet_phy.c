@@ -225,10 +225,10 @@ void ENETPHY_SetPhyMode(ENETPHY_Handle hPhyDev,uint32_t PhyMode)
     *PhyState = ( (*PhyState)&(~ENETPHY_STATE_MASK)) | (FOUND | ENETPHY_CHANGE);
     }
 
-     ENET_PHY_log("SetPhyMode:%08x Auto:%d, FD10:%d, HD10:%d, FD100:%d, HD100:%d, FD1000:%d LPBK:%d\n", (unsigned int)PhyMode,
-     (unsigned int)(PhyMode & NWAY_AUTO), (unsigned int)(PhyMode & MII_NWAY_FD10),(unsigned int)(PhyMode & MII_NWAY_HD10),(unsigned int)(PhyMode & MII_NWAY_FD100),
-     (unsigned int)(PhyMode & MII_NWAY_HD100), (unsigned int)(PhyMode & NWAY_FD1000),
-     (unsigned int)(PhyMode & NWAY_LPBK)  );
+     ENET_PHY_log("SetPhyMode:%08X Auto:%d, FD10:%d, HD10:%d, FD100:%d, HD100:%d, FD1000:%d LPBK:%d\n", PhyMode,
+     (PhyMode & NWAY_AUTO), (PhyMode & MII_NWAY_FD10),(PhyMode & MII_NWAY_HD10),(PhyMode & MII_NWAY_FD100),
+     (PhyMode & MII_NWAY_HD100), (PhyMode & NWAY_FD1000),
+     (PhyMode & NWAY_LPBK)  );
 
 	  }
 
@@ -384,7 +384,7 @@ void ENETPHY_LinkChange(ENETPHY_Handle hPhyDev)
 
   PhyNum = ( (*PhyState) & ENETPHY_DEV_MASK) >> ENETPHY_DEV_OFFSET;
 
-  ENET_PHY_log("ENETPHY_LinkChange: PhyNum = %d\n", (unsigned int)PhyNum);
+  ENET_PHY_log("ENETPHY_LinkChange: PhyNum = %d\n", PhyNum);
 
   if (0u != (ENETPHY_GetLinked(hPhyDev)) )
     {
@@ -459,7 +459,7 @@ void ENETPHY_DisablePhy(ENETPHY_Handle hPhyDev,uint32_t PhyNum)
   {
   ENETPHY_UserAccessWrite(hPhyDev, ENETPHY_BCR, PhyNum, (MII_ENETPHY_ISOLATE | MII_ENETPHY_PDOWN) );
 
-  ENET_PHY_log("ENETPHY_DisablePhy(%d)\n",(unsigned int)PhyNum);
+  ENET_PHY_log("ENETPHY_DisablePhy(%d)\n",PhyNum);
 
   }
 
@@ -513,7 +513,7 @@ void ENETPHY_FindingState(ENETPHY_Handle hPhyDev)
       *PhyState = ( (*PhyState) & (~ENETPHY_STATE_MASK) ) | (FOUND);
       *PhyState|=ENETPHY_CHANGE;
 
-      ENET_PHY_log("ENETPHY_FindingState: PhyNum: %d\n",(unsigned int)PhyNum);
+      ENET_PHY_log("ENETPHY_FindingState: PhyNum: %d\n",PhyNum);
 
       }
      else
@@ -837,9 +837,9 @@ void ENETPHY_NwayWaitState(ENETPHY_Handle hPhyDev)
 	/* Negotiated mode is we and the remote have in common */
 	NegMode = NWAYadvertise & NWAYREadvertise;
 
-	ENET_PHY_log("Phy: %d, ",(unsigned int)( (*PhyState) & ENETPHY_DEV_MASK) >> ENETPHY_DEV_OFFSET);
+	ENET_PHY_log("Phy: %d, ",( (*PhyState) & ENETPHY_DEV_MASK) >> ENETPHY_DEV_OFFSET);
 	ENET_PHY_log("NegMode %04X, NWAYadvertise %04X, NWAYREadvertise %04X\n",
-		   (unsigned int)NegMode,  (unsigned int)NWAYadvertise, (unsigned int)NWAYREadvertise);
+		   NegMode,  NWAYadvertise, NWAYREadvertise);
 
 	/* Limit negotiation to fields below */
 	NegMode &= ( (MII_NWAY_FD100|MII_NWAY_HD100) | (MII_NWAY_FD10|MII_NWAY_HD10));

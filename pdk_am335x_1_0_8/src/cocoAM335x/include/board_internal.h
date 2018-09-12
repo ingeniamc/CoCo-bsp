@@ -7,7 +7,7 @@
  *  ============================================================================
  */
 /* --COPYRIGHT--,BSD
- * Copyright (c) 2011-2017, Texas Instruments Incorporated
+ * Copyright (c) 2011-2015, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,10 +41,6 @@
 #ifndef BOARD_INTERNAL_H_
 #define BOARD_INTERNAL_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*****************************************************************************
  * Include Files                                                             *
  *****************************************************************************/
@@ -58,15 +54,6 @@ extern "C" {
 #include <ti/drv/i2c/soc/I2C_soc.h>
 
 #include <ti/board/board.h>
-
-/* PLL multipliers and dividers for confuring ICSS clock */
-#define BOARD_DISP_DPLL_DEFAULT_MULT          (2)
-#define BOARD_DISP_DPLL_DEFAULT_DIV           (0)
-#define BOARD_DISP_DPLL_DEFAULT_POST_DIVM2    (1)
-
-#define BOARD_ICSS_CLK_225MHZ_DISP_DPLL_MULT        (900)
-#define BOARD_ICSS_CLK_225MHZ_DISP_DPLL_DIV         (23)
-#define BOARD_ICSS_CLK_225MHZ_DISP_DPLL_POST_DIVM2  (4)
 
 /*****************************************************************************
  * Internal Objects                                                          *
@@ -90,9 +77,4 @@ Board_STATUS Board_pinmuxConfig();
 Board_STATUS Board_uartStdioInit();
 Board_STATUS Board_internalInitI2C();
 Board_STATUS Board_icssEthConfig(void);
-
-#ifdef __cplusplus
-}
-#endif
-
 #endif

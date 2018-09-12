@@ -1,8 +1,8 @@
 /**
- *   @file  icev2AM335x_ethernet_config.c
+ *   @file  cocoAM335x_ethernet_config.c
  *
  *   @brief
- *      This file contains the ICSS EMAC PHY configurations for icev2AM335x board
+ *      This file contains the ICSS EMAC PHY configurations for cocoAM335x board
  *
  *      Board_icssEthConfig: This API configures 10/100 PHYs connected to two
  *      ICSS ports. Several configurations are needed for normal operation of
@@ -206,7 +206,7 @@ static void Board_phyReset(void)
     gpioPhyReset.instNum = 2;
     gpioPhyReset.pinNum = GPIO_PHY_RESET_PIN_NUM;
 
-    Board_initGPIO(&gpioPhyReset);
+    Board_initGPIO( &gpioPhyReset);
     GPIOPinWrite(gpioPhyReset.instAddr, gpioPhyReset.pinNum, 0);
     Board_delay(3000);
     GPIOPinWrite(gpioPhyReset.instAddr, gpioPhyReset.pinNum, 1);
@@ -222,12 +222,12 @@ static void Board_phyReset(void)
 static void Board_mdioInit(void);  /* for misra warning */
 static void Board_mdioInit(void)
 {
-    // uint32_t temp32 = 0;
-    // HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_CONTROL) = 0x4000009F;
+    uint32_t temp32 = 0;
+    HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_CONTROL) = 0x4000009F;
 
     // PHY1 configure FD in parallel detect mode
-    // while(HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) & (1<<31));
-    /*HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) = 0x00 |\
+    while(HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) & (1<<31));
+    HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) = 0x00 |\
             (1<<31) |\
             (0<<30) |\
             (0<<29) |\
@@ -263,7 +263,7 @@ static void Board_mdioInit(void)
             (0<<29) |\
             (0xA<<21) |\
             ((BOARD_ICSS_EMAC_PORT1_PHY_ADDR)<<16) |\
-            (temp32<<0);*/
+            (temp32<<0);
 }
 
 /**
@@ -282,34 +282,16 @@ static void Board_mdioInit(void)
 Board_STATUS Board_icssEthConfig(void);  /* for misra warning */
 Board_STATUS Board_icssEthConfig(void)
 {
-    // /* LINK LED */
-    // gpioPinObj_t gpioPhy1Led = gpioPinObjDefault;
-    // gpioPhy1Led.instAddr = SOC_GPIO_1_REGS;
-    // gpioPhy1Led.instNum = 3;
-    // gpioPhy1Led.pinNum = 28;
-    // Board_initGPIO(&gpioPhy1Led);
-    // GPIOPinWrite(gpioPhy1Led.instAddr, gpioPhy1Led.pinNum, 1); // FORCE FD
+    gpioPinObj_t gpioMii2Mux = gpioPinObjDefault;
 
-
-    // /* MII/RMII 
-    // PHY0 ->  T5 -> gpio0[11]
-    // PHY1 -> T16 -> gpio1[26]*/
-    // gpioPinObj_t gpioPhy0RxDv = gpioPinObjDefault;
-    // gpioPhy0RxDv.instAddr = SOC_GPIO_0_REGS;
-    // gpioPhy0RxDv.instNum = 3;
-    // gpioPhy0RxDv.pinNum = 11;
-    // Board_initGPIO(&gpioPhy0RxDv);
-    // GPIOPinWrite(gpioPhy0RxDv.instAddr, gpioPhy0RxDv.pinNum, 0); // MII MODE
-
-    // gpioPinObj_t gpioPhy1RxDv = gpioPinObjDefault;
-    // gpioPhy1RxDv.instAddr = SOC_GPIO_1_REGS;
-    // gpioPhy1RxDv.instNum = 3;
-    // gpioPhy1RxDv.pinNum = 26;
-    // Board_initGPIO(&gpioPhy1RxDv);
-    // GPIOPinWrite(gpioPhy1RxDv.instAddr, gpioPhy1RxDv.pinNum, 0); // MII MODE
-
+    gpioMii2Mux.instAddr = GPIO_PHY1_DV_BASE_ADDR;
+    gpioMii2Mux.instNum = 3;
+    gpioMii2Mux.pinNum =  GPIO_PHY1_DV_PIN_NUM;
+    Board_initGPIO(&gpioMii2Mux);
+    GPIOPinWrite(gpioMii2Mux.instAddr, gpioMii2Mux.pinNum, GPIO_PIN_HIGH);
     Board_mdioInit();
     Board_phyReset();
-
+    
     return BOARD_SOK;
 }
+

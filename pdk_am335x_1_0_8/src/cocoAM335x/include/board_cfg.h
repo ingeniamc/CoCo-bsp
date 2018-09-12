@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017, Texas Instruments Incorporated
+ * Copyright (c) 2015, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,10 +33,6 @@
 #ifndef BOARD_CFG_H_
 #define BOARD_CFG_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <ti/starterware/include/hw/soc_am335x.h>
 
 /* UART LLD instance number */
@@ -62,38 +58,39 @@ extern "C" {
 #define GPIO_PHY_RESET_BASE_ADDR 		SOC_GPIO_2_REGS
 #define GPIO_PHY_RESET_PIN_NUM	 		(uint16_t)5U
 
-#define GPIO_PHY1_DV_BASE_ADDR 			SOC_GPIO_3_REGS
-#define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)4U
+#define GPIO_PHY1_DV_BASE_ADDR 			SOC_GPIO_2_REGS
+#define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)23U
 
-// /* Port and pin number mask for MMCSD Card Detect pin.
-//    Bits 7-0: Pin number  and Bits 15-8: (Port number + 1) */
+
+/* Port and pin number mask for MMCSD Card Detect pin.
+   Bits 7-0: Pin number  and Bits 15-8: (Port number + 1) */
 // #define GPIO_MMC_SDCD_PIN_NUM           (0x6)
 // #define GPIO_MMC_SDCD_PORT_NUM          (0x1)
 // #define GPIO_PIN_MMC_SDCD_ACTIVE_STATE  (0x0)
 
-// /* McSPI instance to support Slave mode is 1.
-//  * To make the example generic accross AM57x
-//  * platforms, added 1 to the instance number.
-//  */
+/* McSPI instance to support Slave mode is 1.
+ * To make the example generic accross AM57x
+ * platforms, added 1 to the instance number.
+ */
 // #define BOARD_MCSPI_MASTER_INSTANCE     (0x2U)
 // #define BOARD_MCSPI_SLAVE_INSTANCE      (0x2U)
 
 /* Board ID information */
 #define BOARD_INFO_CPU_NAME             "AM335x"
-#define BOARD_INFO_BOARD_NAME           "COCOAM335x"
+#define BOARD_INFO_BOARD_NAME           "COCO"
 
 /* Mmeory Sections */
 #define BOARD_DDR3_START_ADDR           0x80010000
 #define BOARD_DDR3_SIZE                 ((256 * 1024 * 1024UL) - 0x00010000)
 #define BOARD_DDR3_END_ADDR             (BOARD_DDR3_START_ADDR + BOARD_DDR3_SIZE - 1)
 
-// /* I2C instance connected to EEPROM */
+/* I2C instance connected to EEPROM */
 // #define BOARD_I2C_EEPROM_INSTANCE       0
 
-// /* I2C address for EEPROM */
+/* I2C address for EEPROM */
 // #define BOARD_I2C_EEPROM_ADDR           (0x50)
 
-// /* EEPROM board ID information */
+/* EEPROM board ID information */
 // #define BOARD_EEPROM_HEADER_LENGTH      4
 // #define BOARD_EEPROM_BOARD_NAME_LENGTH  8
 // #define BOARD_EEPROM_VERSION_LENGTH     4
@@ -112,15 +109,4 @@ extern "C" {
 /* ICSS EMAC PHY address definitions */
 #define BOARD_ICSS_EMAC_PORT0_PHY_ADDR  (1U)
 #define BOARD_ICSS_EMAC_PORT1_PHY_ADDR  (3U)
-
-typedef enum _BoardIcssClkOut
-{
-    BOARD_ICSS_PLL_CLK_200MHZ,
-    BOARD_ICSS_PLL_CLK_225MHZ
-} BoardIcssClkOut;
-
-#ifdef __cplusplus
-}
-#endif
-
 #endif
