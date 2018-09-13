@@ -415,7 +415,7 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
 const char * gpBoardAm335xCocoRevStrTable[] =
 {
     "UNKNOWN",   /* Corresponds to UNKNOWN board. */
-    "00A1",      /* COCO version board */
+    "00A1",      /* EVM A1 version board */
 };
 
 /** \brief This object contains details of all devices on the board. */

@@ -38,16 +38,143 @@
  *  ======== Board_getIDInfo ========
  */
 Board_STATUS Board_getIDInfo(Board_IDInfo *info) {
-    Board_STATUS tBoardStatus = BOARD_SOK;
-    
-    return tBoardStatus;
+    Board_STATUS ret = BOARD_SOK;
+    // I2C_Transaction i2cTransaction;
+    // I2C_Handle handle = NULL;
+    // char txBuf[2] = {0x00, 0x00};
+    // bool status;
+
+    // I2C_transactionInit(&i2cTransaction);
+
+    // /* If handle not opened yet, init i2c */
+    // if (Board_obj.i2cHandle == NULL)
+    // {
+    //     ret = Board_internalInitI2C();
+    // }
+    // if (ret != BOARD_SOK)
+    //     return ret;
+
+    // handle = Board_obj.i2cHandle;
+
+    // i2cTransaction.slaveAddress = BOARD_I2C_EEPROM_ADDR;
+    // i2cTransaction.writeBuf = (uint8_t *)&txBuf[0];
+    // i2cTransaction.writeCount = 2;
+
+    // /* Get header info */
+    // txBuf[0] = (char)(((uint32_t) 0xFF00 & BOARD_EEPROM_HEADER_ADDR)>>8);
+    // txBuf[1] = (char)((uint32_t) 0xFF & BOARD_EEPROM_HEADER_ADDR);
+    // i2cTransaction.readBuf = (uint8_t *) info->header;
+    // i2cTransaction.readCount = BOARD_EEPROM_HEADER_LENGTH;
+    // status = I2C_transfer(handle, &i2cTransaction);
+    // if (status == false)
+    // {
+    //     ret = BOARD_I2C_TRANSFER_FAIL;
+    //     I2C_close(handle);
+    //     Board_obj.i2cHandle = NULL;
+    //     return ret;
+    // }
+    // info->header[BOARD_EEPROM_HEADER_LENGTH] = '\0';
+
+    // /* Get board name */
+    // txBuf[0] = (char)(((uint32_t) 0xFF00 & BOARD_EEPROM_BOARD_NAME_ADDR)>>8);
+    // txBuf[1] = (char)((uint32_t) 0xFF & BOARD_EEPROM_BOARD_NAME_ADDR);
+    // i2cTransaction.readBuf = (uint8_t *) info->boardName;
+    // i2cTransaction.readCount = BOARD_EEPROM_BOARD_NAME_LENGTH;
+    // status = I2C_transfer(handle, &i2cTransaction);
+    // if (status == false)
+    // {
+    //     ret = BOARD_I2C_TRANSFER_FAIL;
+    //     I2C_close(handle);
+    //     Board_obj.i2cHandle = NULL;
+    //     return ret;
+    // }
+    // info->boardName[BOARD_EEPROM_BOARD_NAME_LENGTH] = '\0';
+
+    // /* Get board version */
+    // txBuf[0] = (char)(((uint32_t) 0xFF00 & BOARD_EEPROM_VERSION_ADDR)>>8);
+    // txBuf[1] = (char)((uint32_t) 0xFF & BOARD_EEPROM_VERSION_ADDR);
+    // i2cTransaction.readBuf = (uint8_t *) info->version;
+    // i2cTransaction.readCount = BOARD_EEPROM_VERSION_LENGTH;
+    // status = I2C_transfer(handle, &i2cTransaction);
+    // if (status == false)
+    // {
+    //     ret = BOARD_I2C_TRANSFER_FAIL;
+    //     I2C_close(handle);
+    //     Board_obj.i2cHandle = NULL;
+    //     return ret;
+    // }
+    // info->version[BOARD_EEPROM_VERSION_LENGTH] = '\0';
+
+    // /* Get header info */
+    // txBuf[0] = (char)(((uint32_t) 0xFF00 & BOARD_EEPROM_SERIAL_NO_ADDR)>>8);
+    // txBuf[1] = (char)((uint32_t) 0xFF & BOARD_EEPROM_SERIAL_NO_ADDR);
+    // i2cTransaction.readBuf = (uint8_t *) info->serialNum;
+    // i2cTransaction.readCount = BOARD_EEPROM_SERIAL_NO_LENGTH;
+    // status = I2C_transfer(handle, &i2cTransaction);
+    // if (status == false)
+    // {
+    //     ret = BOARD_I2C_TRANSFER_FAIL;
+    //     I2C_close(handle);
+    //     Board_obj.i2cHandle = NULL;
+    //     return ret;
+    // }
+    // info->serialNum[BOARD_EEPROM_SERIAL_NO_LENGTH] = '\0';
+
+    // I2C_close(handle);
+    // Board_obj.i2cHandle = NULL;
+
+    return ret;
 }
 
 /*
  *  ======== Board_writeIDInfo ========
  */
 Board_STATUS Board_writeIDInfo(Board_IDInfo *info) {
-    Board_STATUS tBoardStatus = BOARD_SOK;
-    
-    return tBoardStatus;
+    Board_STATUS ret = BOARD_SOK;
+    // I2C_Transaction i2cTransaction;
+    // I2C_Handle handle = NULL;
+    // char txBuf[2+BOARD_EEPROM_HEADER_LENGTH+BOARD_EEPROM_BOARD_NAME_LENGTH
+    //     +BOARD_EEPROM_VERSION_ADDR+BOARD_EEPROM_SERIAL_NO_LENGTH];
+    // bool status;
+    // int i, idx;
+
+    // I2C_transactionInit(&i2cTransaction);
+
+    // /* If handle not opened yet, init i2c */
+    // if (Board_obj.i2cHandle == NULL)
+    // {
+    //     ret = Board_internalInitI2C();
+    // }
+    // if (ret != BOARD_SOK)
+    //     return ret;
+
+    // handle = Board_obj.i2cHandle;
+
+    // i2cTransaction.slaveAddress = BOARD_I2C_EEPROM_ADDR;
+    // i2cTransaction.writeBuf = (uint8_t *)&txBuf[0];
+    // i2cTransaction.writeCount = 2;
+
+    // /* write header info */
+    // txBuf[0] = (char)(((uint32_t) 0xFF00 & BOARD_EEPROM_HEADER_ADDR)>>8);
+    // txBuf[1] = (char)((uint32_t) 0xFF & BOARD_EEPROM_HEADER_ADDR);
+    // i2cTransaction.readCount = 0;
+    // idx = 2;
+    // for (i = 0; i<BOARD_EEPROM_HEADER_LENGTH; i++) txBuf[idx++] = info->header[i];
+    // for (i = 0; i<BOARD_EEPROM_BOARD_NAME_LENGTH; i++) txBuf[idx++] = info->boardName[i];
+    // for (i = 0; i<BOARD_EEPROM_VERSION_ADDR; i++) txBuf[idx++] = info->version[i];
+    // for (i = 0; i<BOARD_EEPROM_SERIAL_NO_LENGTH; i++) txBuf[idx++] = info->serialNum[i];
+    // status = I2C_transfer(handle, &i2cTransaction);
+    // if (status == false)
+    // {
+    //     ret = BOARD_I2C_TRANSFER_FAIL;
+    //     I2C_close(handle);
+    //     Board_obj.i2cHandle = NULL;
+    //     return ret;
+    // }
+    // info->header[BOARD_EEPROM_HEADER_LENGTH] = '\0';
+
+    // I2C_close(handle);
+    // Board_obj.i2cHandle = NULL;
+
+    return ret;
 }

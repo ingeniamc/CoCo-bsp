@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2010-2015 Texas Instruments Incorporated - http://www.ti.com
+ * Copyright (c) 2010-2018 Texas Instruments Incorporated - http://www.ti.com
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -42,7 +42,38 @@ Board_STATUS Board_uartStdioInit()
 
 Board_STATUS Board_internalInitI2C()
 {
-    Board_STATUS tBoardStatus = BOARD_SOK;
-    
-    return tBoardStatus;
+    // I2C_Params i2cParams;
+    // I2C_Transaction transaction;
+    // int i;
+    // int16_t transferStatus;
+    // uint8_t out_buff[2] ={ 0x85, 0x00 };
+    // for (i=0; i < I2C_HWIP_MAX_CNT; i++)
+    // {
+    //     ((I2C_HwAttrs *)I2C_config[i].hwAttrs)->enableIntr = false;
+    // }
+
+    // I2C_init();
+
+    // I2C_Params_init(&i2cParams);
+
+    // Board_obj.i2cHandle = I2C_open(BOARD_I2C_EEPROM_INSTANCE, &i2cParams);
+    // if (Board_obj.i2cHandle == NULL) 
+    //     return BOARD_I2C_OPEN_FAIL;
+    // I2C_transactionInit(&transaction);
+    // transaction.arg = NULL;
+    // transaction.nextPtr = NULL;
+    // transaction.readBuf = NULL;
+    // transaction.readCount = 0;
+    // transaction.slaveAddress = 0x65;
+    // transaction.writeBuf =(uint8_t *)&out_buff[0];
+    // transaction.writeCount = 2;
+    // transferStatus = I2C_transfer(Board_obj.i2cHandle, &transaction);
+
+    // if(I2C_STS_SUCCESS != transferStatus)
+    // {
+    //     I2C_close(Board_obj.i2cHandle);
+    //     return BOARD_I2C_TRANSFER_FAIL;
+    // }
+    // else
+        return BOARD_SOK;
 }

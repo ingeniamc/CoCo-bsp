@@ -1,5 +1,5 @@
 /**
- * \file   am335x_coco.h
+ * \file   am335x_COCO.h
  *
  * \brief  This file provides AM335x COCO specific board data.
  *
