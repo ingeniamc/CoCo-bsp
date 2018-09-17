@@ -110,62 +110,6 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
         NULL                                /* pFnPowerOnDev */
     },
 #endif /* if defined(BUILDCFG_MOD_UART) */
-#if defined(BUILDCFG_MOD_I2C)
-    { /* EEPROM */
-        DEVICE_ID_EEPROM,                   /* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_I2C,                  /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        BOARD_EEPROM_I2C_ADDR_0,            /* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        NULL,                               /* pFnResetDev */
-        NULL                                /* pFnPowerOnDev */
-    },
-#endif /* if defined(BUILDCFG_MOD_I2C) */
-#if defined(BUILDCFG_MOD_I2C)
-    { /* EEPROM */
-        DEVICE_ID_I2C_LED,                  /* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_I2C,                  /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        BOARD_LED_I2C_ADDR_2,            	/* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* selectDev */
-        NULL,                               /* resetDev */
-        NULL                                /* powerOnDev */
-    },
-#endif /* if defined(BUILDCFG_MOD_I2C) */
-#if defined(BUILDCFG_MOD_I2C)
-    { /* EEPROM */
-        DEVICE_ID_I2C_OLED,                  /* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_I2C,                  /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        BOARD_OLED_I2C_ADDR_0,            	/* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* selectDev */
-        NULL,                               /* resetDev */
-        NULL                                /* powerOnDev */
-    },
-#endif /* if defined(BUILDCFG_MOD_I2C) */
-#if defined(BUILDCFG_MOD_I2C)
-    { /* Rotary Switch */
-	DEVICE_ID_I2C_ROTARY_SW,                  /* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_I2C,                  /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-		BOARD_ROTARY_SW_ADDR_0,            	/* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* selectDev */
-        NULL,                               /* resetDev */
-        NULL                                /* powerOnDev */
-    },
-#endif /* if defined(BUILDCFG_MOD_I2C) */
 #if defined(BUILDCFG_MOD_PRUSS)
     { /* PRUSS */
         DEVICE_ID_PRUSS,            		/* devId */
@@ -180,33 +124,6 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
         NULL                                /* pFnPowerOnDev */
     },
 #endif /* if defined(BUILDCFG_MOD_PRU_ETH) */
-#if defined(BUILDCFG_MOD_CPSW)
-    { /* Ethernet PHY device */
-        DEVICE_ID_ENET_PHY_RMII,            /* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_CPSW,                 /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        1U, /* CPSW port number */          /* ctrlInfo */
-        1U, /* PHY device address */        /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        BoardAm335xCocoPhySetupAndReset,   /* pFnResetDev */
-        NULL,                               /* pFnPowerOnDev */
-    },
-    { /* Ethernet PHY device */
-        DEVICE_ID_ENET_PHY_RMII,            /* devId */
-        1U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_CPSW,                 /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        2U, /* CPSW port number */          /* ctrlInfo */
-        3U, /* PHY device address */        /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        BoardAm335xCocoPhySetupAndReset,   /* pFnResetDev */
-        NULL,                               /* pFnPowerOnDev */
-    },
-#endif /* if defined(BUILDCFG_MOD_CPSW) */
-
 #if defined(BUILDCFG_MOD_PRU_ETH)
     { /* Ethernet PHY device */
         DEVICE_ID_ENET_PHY_MII,            	/* devId */
@@ -321,55 +238,6 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
         NULL,                               /* pFnResetDev */
         NULL                                /* pFnPowerOnDev */
     },
-    { /* PHY RESET GPIO */
-        DEVICE_ID_MII_MUX,                  /* devId */
-        7U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_GPIO,                 /* ctrlModId */
-        3U,                                 /* ctrlModInstNum */
-        10, /* GPIO pin number */           /* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        NULL,                               /* pFnResetDev */
-        NULL                                /* pFnPowerOnDev */
-    },
-    { /* PHY RESET GPIO */
-        DEVICE_ID_MII_MUX,                  /* devId */
-        8U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_GPIO,                 /* ctrlModId */
-        3U,                                 /* ctrlModInstNum */
-        4, /* GPIO pin number */           	/* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        NULL,                               /* pFnResetDev */
-        NULL                                /* pFnPowerOnDev */
-    },
-    { /* PHY RESET GPIO */
-        DEVICE_ID_MII_MUX,                  /* devId */
-        9U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_GPIO,                 /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        7, /* GPIO pin number */           	/* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        NULL,                               /* pFnResetDev */
-        NULL                                /* pFnPowerOnDev */
-    },
-    { /* VTT */
-        DEVICE_ID_VTT,                      /* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_GPIO,                 /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        18, /* GPIO pin number */            /* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* pFnSelectDev */
-        NULL,                               /* pFnResetDev */
-        NULL                                /* pFnPowerOnDev */
-    },
-
 #endif /* if defined(BUILDCFG_MOD_GPIO) */
 #if defined(BUILDCFG_MOD_MCSPI)
    { /* M29W160EB SPI Flash */
@@ -378,30 +246,6 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
         CHIPDB_MOD_ID_MCSPI,                /* ctrlModId */
         0U,                                 /* ctrlModInstNum */
         0U, /* Chip Select */           /* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* selectDev */
-        NULL,                               /* resetDev */
-        NULL                                /* powerOnDev */
-   },
-   { /* W25Q64BV SPI Flash */
-        DEVICE_ID_HVS882,                 	/* devId */
-        0U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_MCSPI,                /* ctrlModId */
-        0U,                                 /* ctrlModInstNum */
-        1U, /* Channel */		           	/* ctrlInfo */
-        CHIPDB_MOD_ID_INVALID,              /* dataModId */
-        INVALID_INST_NUM,                   /* dataModInstNum */
-        NULL,                               /* selectDev */
-        NULL,                               /* resetDev */
-        NULL                                /* powerOnDev */
-   },
-   { /* GPIO for HVS882 */
-        DEVICE_ID_HVS882,                      /* devId */
-        1U,                                 /* devInstNum */
-        CHIPDB_MOD_ID_GPIO,                 /* ctrlModId */
-        3U,                                 /* ctrlModInstNum */
-        18, /* GPIO pin number */           /* ctrlInfo */
         CHIPDB_MOD_ID_INVALID,              /* dataModId */
         INVALID_INST_NUM,                   /* dataModInstNum */
         NULL,                               /* pFnSelectDev */
@@ -415,7 +259,7 @@ const boardDeviceData_t gBoardAm335xCocoDevData[] =
 const char * gpBoardAm335xCocoRevStrTable[] =
 {
     "UNKNOWN",   /* Corresponds to UNKNOWN board. */
-    "00A1",      /* EVM A1 version board */
+    "00A1",      /* COCO version board */
 };
 
 /** \brief This object contains details of all devices on the board. */
@@ -446,75 +290,5 @@ const boardData_t   gBoardAm335xCocoData =
 
 int32_t BoardAm335xCocoPhySetupAndReset(uint32_t devId, uint32_t devInstNum)
 {
-
-    uint32_t status = E_FAIL;
-    volatile uint32_t gpio0BaseAddress;
-    volatile uint32_t gpio2BaseAddress;
-    volatile uint32_t gpio3BaseAddress;
-
-    if (gBoardAm335xCocoPhyResetStatus == 0)
-    {
-        gpio0BaseAddress = CHIPDBBaseAddress(CHIPDB_MOD_ID_GPIO, 0);
-        gpio2BaseAddress = CHIPDBBaseAddress(CHIPDB_MOD_ID_GPIO, 2);
-        gpio3BaseAddress = CHIPDBBaseAddress(CHIPDB_MOD_ID_GPIO, 3);
-
-        /* Clock Configuration */
-        status = PRCMModuleEnable(CHIPDB_MOD_ID_GPIO,0, 0);
-        status &= PRCMModuleEnable(CHIPDB_MOD_ID_GPIO,2, 0);
-        status &= PRCMModuleEnable(CHIPDB_MOD_ID_GPIO,3, 0);
-        if(S_PASS != status)
-        {
-            CONSOLEUtilsPrintf("\n PRCM for GPIO failed to setup Phy\n");
-        }
-
-        if(S_PASS == status)
-        {
-            /* PinMux Configuration */
-            status  = PINMUXModuleConfig(CHIPDB_MOD_ID_GPIO, 0, NULL);
-            status &= PINMUXModuleConfig(CHIPDB_MOD_ID_GPIO, 2, NULL);
-            status &= PINMUXModuleConfig(CHIPDB_MOD_ID_GPIO, 3, NULL);
-           if(S_PASS != status)
-           {
-               CONSOLEUtilsPrintf("\n Pin Muxing failed !\n");
-           }
-        }
-
-        /* Enable GPIO modules */
-        GPIOModuleEnable(gpio0BaseAddress, TRUE);
-        GPIOModuleEnable(gpio2BaseAddress, TRUE);
-        GPIOModuleEnable(gpio3BaseAddress, TRUE);
-
-        /* Set Direction */
-        // GPIODirModeSet(gpio0BaseAddress, 7, GPIO_DIRECTION_OUTPUT);
-        // GPIODirModeSet(gpio0BaseAddress, 18, GPIO_DIRECTION_OUTPUT);
-        GPIODirModeSet(GPIO_PHY_RESET_BASE_ADDR, GPIO_PHY_RESET_PIN_NUM, GPIO_DIRECTION_OUTPUT);
-        // GPIODirModeSet(gpio3BaseAddress, 4, GPIO_DIRECTION_OUTPUT);
-        // GPIODirModeSet(gpio3BaseAddress, 10, GPIO_DIRECTION_OUTPUT);
-
-        /* PR1_MII_CTL */
-        // GPIOPinWrite(gpio3BaseAddress, 4, 1);
-
-        /* MUX MII CONTROL */
-        // GPIOPinWrite(gpio3BaseAddress, 10, 1);
-
-        /* FET SWITCH CONTROL */
-        // GPIOPinWrite(gpio0BaseAddress, 7, 1);
-
-        /* DDR VTT ENABLE */
-        // GPIOPinWrite(gpio0BaseAddress, 18, 1);
-
-        /* Phy 0 & 1 reset */
-        GPIOPinWrite(GPIO_PHY_RESET_BASE_ADDR, GPIO_PHY_RESET_PIN_NUM, 0);
-        delay(1);
-        GPIOPinWrite(GPIO_PHY_RESET_BASE_ADDR, GPIO_PHY_RESET_PIN_NUM, 1);
-        delay(1);
-
-        gBoardAm335xCocoPhyResetStatus++;
-    }
-    else
-    {
-        status = S_PASS;
-    }
-
-    return(status);
+    return S_PASS;
 }

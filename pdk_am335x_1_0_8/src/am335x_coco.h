@@ -1,5 +1,5 @@
 /**
- * \file   am335x_COCO.h
+ * \file   am335x_coco.h
  *
  * \brief  This file provides AM335x COCO specific board data.
  *
@@ -59,9 +59,6 @@ extern "C" {
 #define BOARD_AM335X_COCO_BOARD_NAME ("COCO_BOARD")
 #define BOARD_AM335X_COCO_BOARD_VERSION ("1.0A")
 
-/* Phy defines */
-#define GPIO_PHY_RESET_BASE_ADDR 		gpio2BaseAddress
-#define GPIO_PHY_RESET_PIN_NUM	 		(uint16_t)5U
 
 /* ========================================================================== */
 /*                         Structures and Enums                               */

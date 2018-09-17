@@ -1,8 +1,8 @@
 /**
- *   @file  icev2AM335x_ethernet_config.c
+ *   @file  cocoAM335x_ethernet_config.c
  *
  *   @brief
- *      This file contains the ICSS EMAC PHY configurations for icev2AM335x board
+ *      This file contains the ICSS EMAC PHY configurations for cocoAM335x board
  *
  *      Board_icssEthConfig: This API configures 10/100 PHYs connected to two
  *      ICSS ports. Several configurations are needed for normal operation of
@@ -106,8 +106,6 @@ gpioPinObj_t gpioPinObjDefault =
     }
 };
 
-
-
 /**
  * \brief  Local Delay function
  *
@@ -176,7 +174,7 @@ static void Board_GPIOPinConfig(uint32_t baseAddr, uint32_t pinNum, gpioPinCfg_t
         GPIOPinIntWakeUpEnable(baseAddr, pGpioPinConfig->intrLine, pinNum);
     }
 }
-
+    
 /**
  * \brief Initializes GPIO instance as specified by object passed in.
  *
@@ -200,116 +198,46 @@ static void Board_initGPIO(gpioPinObj_t *pGpioObj)
 static void Board_phyReset(void);  /* for misra warning */
 static void Board_phyReset(void)
 {
-    gpioPinObj_t gpioPhyReset = gpioPinObjDefault;
+    gpioPinObj_t tGpioPhyReset = gpioPinObjDefault;
 
-    gpioPhyReset.instAddr = GPIO_PHY_RESET_BASE_ADDR;
-    gpioPhyReset.instNum = 2;
-    gpioPhyReset.pinNum = GPIO_PHY_RESET_PIN_NUM;
+    tGpioPhyReset.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhyReset.instNum = 6;
+    tGpioPhyReset.pinNum = 5;
 
-    Board_initGPIO(&gpioPhyReset);
-    GPIOPinWrite(gpioPhyReset.instAddr, gpioPhyReset.pinNum, 0);
+    Board_initGPIO(&tGpioPhyReset);
+    GPIOPinWrite(tGpioPhyReset.instAddr, tGpioPhyReset.pinNum, 0);
     Board_delay(3000);
-    GPIOPinWrite(gpioPhyReset.instAddr, gpioPhyReset.pinNum, 1);
-    
+    GPIOPinWrite(tGpioPhyReset.instAddr, tGpioPhyReset.pinNum, 1);
 }
 
-
-/**
- * \brief   MDIO peripheral initialization. Enables MDIO state machine.
- *
- * \return  none
- */
-static void Board_mdioInit(void);  /* for misra warning */
-static void Board_mdioInit(void)
-{
-    // uint32_t temp32 = 0;
-    // HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_CONTROL) = 0x4000009F;
-
-    // PHY1 configure FD in parallel detect mode
-    // while(HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) & (1<<31));
-    /*HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) = 0x00 |\
-            (1<<31) |\
-            (0<<30) |\
-            (0<<29) |\
-            (0xA<<21) |\
-            ((BOARD_ICSS_EMAC_PORT0_PHY_ADDR)<<16) |\
-            (0x0<<0);
-    while((temp32 = HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0)) & (1<<31));
-    temp32 |= 1<<5;    // set Force Full-Duplex while working with link partner in forced 100B-TX
-    temp32 &= 0xFFFF;
-    HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS0) = 0x00 |\
-            (1<<31) |\
-            (1<<30) |\
-            (0<<29) |\
-            (0xA<<21) |\
-            ((BOARD_ICSS_EMAC_PORT0_PHY_ADDR)<<16) |\
-            (temp32<<0);
-
-    // PHY2 configure FD in parallel detect mode
-    while(HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS1) & (1<<31));
-    HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS1) = 0x00 |\
-            (1<<31) |\
-            (0<<30) |\
-            (0<<29) |\
-            (0xA<<21) |\
-            ((BOARD_ICSS_EMAC_PORT1_PHY_ADDR)<<16) |\
-            (0x0<<0);
-    while((temp32 = HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS1)) & (1<<31));
-    temp32 |= 1<<5;    // set Force Full-Duplex while working with link partner in forced 100B-TX
-    temp32 &= 0xFFFF;
-    HWREG(SOC_PRU_ICSS_MII_MDIO_REG + HW_ICSS_MII_MDIO_USERACCESS1) = 0x00 |\
-            (1<<31) |\
-            (1<<30) |\
-            (0<<29) |\
-            (0xA<<21) |\
-            ((BOARD_ICSS_EMAC_PORT1_PHY_ADDR)<<16) |\
-            (temp32<<0);*/
-}
 
 /**
  * \brief  Board specific configurations for ICSS  Ethernet PHYs
  *
  *  This function takes care of making several board level configurations
  *  required for ICSS EMAC PHY as listed below.
- *   - MDIO initialization
- *   - Setting the GPIOs for PHY reset, routing ICSS signals to PHYs,
- *     PHY interrupt lines.
+ *   - Enable Phy buffers
  *   - Resetting the PHYs for proper address latching
-
  *
  * \return  none
  */
 Board_STATUS Board_icssEthConfig(void);  /* for misra warning */
 Board_STATUS Board_icssEthConfig(void)
 {
-    // /* LINK LED */
-    // gpioPinObj_t gpioPhy1Led = gpioPinObjDefault;
-    // gpioPhy1Led.instAddr = SOC_GPIO_1_REGS;
-    // gpioPhy1Led.instNum = 3;
-    // gpioPhy1Led.pinNum = 28;
-    // Board_initGPIO(&gpioPhy1Led);
-    // GPIOPinWrite(gpioPhy1Led.instAddr, gpioPhy1Led.pinNum, 1); // FORCE FD
+    gpioPinObj_t tGpioBufsEnable, tGpioLedLink;
+    tGpioBufsEnable = tGpioLedLink = gpioPinObjDefault;
 
+    tGpioBufsEnable.instAddr = SOC_GPIO_2_REGS;
+    tGpioBufsEnable.pinNum =  23;
+    Board_initGPIO(&tGpioBufsEnable);
+    GPIOPinWrite(tGpioBufsEnable.instAddr, tGpioBufsEnable.pinNum, GPIO_PIN_HIGH);
+    
+    tGpioLedLink.instAddr = SOC_GPIO_0_REGS;
+    tGpioLedLink.pinNum =  8;
+    Board_initGPIO(&tGpioLedLink);
+    GPIOPinWrite(tGpioLedLink.instAddr, tGpioLedLink.pinNum, GPIO_PIN_HIGH);
 
-    // /* MII/RMII 
-    // PHY0 ->  T5 -> gpio0[11]
-    // PHY1 -> T16 -> gpio1[26]*/
-    // gpioPinObj_t gpioPhy0RxDv = gpioPinObjDefault;
-    // gpioPhy0RxDv.instAddr = SOC_GPIO_0_REGS;
-    // gpioPhy0RxDv.instNum = 3;
-    // gpioPhy0RxDv.pinNum = 11;
-    // Board_initGPIO(&gpioPhy0RxDv);
-    // GPIOPinWrite(gpioPhy0RxDv.instAddr, gpioPhy0RxDv.pinNum, 0); // MII MODE
-
-    // gpioPinObj_t gpioPhy1RxDv = gpioPinObjDefault;
-    // gpioPhy1RxDv.instAddr = SOC_GPIO_1_REGS;
-    // gpioPhy1RxDv.instNum = 3;
-    // gpioPhy1RxDv.pinNum = 26;
-    // Board_initGPIO(&gpioPhy1RxDv);
-    // GPIOPinWrite(gpioPhy1RxDv.instAddr, gpioPhy1RxDv.pinNum, 0); // MII MODE
-
-    Board_mdioInit();
     Board_phyReset();
-
     return BOARD_SOK;
 }
+

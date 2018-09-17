@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2010-2017 Texas Instruments Incorporated - http://www.ti.com
+ * Copyright (c) 2010-2015 Texas Instruments Incorporated - http://www.ti.com
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -39,10 +39,8 @@
 #include "chipdb.h"
 #include "prcm.h"
 #include "board_cfg.h"
-#include "hw_cm_wkup.h"
-#include "hw_cm_dpll.h"
 
-/* EEPROM data on ICEv 2.1A */
+/* EEPROM data on COCO 1.0A */
 char eepromData[I2C_EEPROM_RX_LENGTH] = {0x55, 0x33, 0xEE, 0x41, 0x33,
                                          0x33, 0x35, 0x5f, 0x49, 0x43};
 
@@ -50,98 +48,6 @@ char eepromData[I2C_EEPROM_RX_LENGTH] = {0x55, 0x33, 0xEE, 0x41, 0x33,
 char serializerData[1] = {0x81};										 
 
 Board_gblObj Board_obj;
-
-/* Configures the display PLL */
-static void Board_initDispPll(uint32_t dpllMult,
-                              uint32_t dpllDiv,
-                              uint32_t dpllPostDivM2)
-{
-    /* Put the PLL in bypass mode */
-
-    HW_WR_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_CLKMODE_DPLL_DISP,
-        CM_WKUP_CM_CLKMODE_DPLL_DISP_DPLL_EN,
-        CM_WKUP_CM_CLKMODE_DPLL_DISP_DPLL_EN_SHIFT,
-        CM_WKUP_CM_CLKMODE_DPLL_DISP_DPLL_EN_DPLL_MN_BYP_MODE);
-
-     /* Wait for DPLL to go in to bypass mode */
-
-    while(0U == HW_RD_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_IDLEST_DPLL_DISP,
-        CM_WKUP_CM_IDLEST_DPLL_DISP_ST_MN_BYPASS,
-        CM_WKUP_CM_IDLEST_DPLL_DISP_ST_MN_BYPASS_SHIFT));
-
-    /* Set the multipler and divider values for the PLL */
-
-    HW_WR_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_CLKSEL_DPLL_DISP,
-        CM_WKUP_CM_CLKSEL_DPLL_DISP_DPLL_MULT,
-        CM_WKUP_CM_CLKSEL_DPLL_DISP_DPLL_MULT_SHIFT,
-        dpllMult);
-    HW_WR_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_CLKSEL_DPLL_DISP,
-        CM_WKUP_CM_CLKSEL_DPLL_DISP_DPLL_DIV,
-        CM_WKUP_CM_CLKSEL_DPLL_DISP_DPLL_DIV_SHIFT,
-        dpllDiv);
-
-    /* Set the CLKOUT2 divider */
-
-    HW_WR_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_DIV_M2_DPLL_DISP,
-        CM_WKUP_CM_DIV_M2_DPLL_DISP_DPLL_CLKOUT_DIV,
-        CM_WKUP_CM_DIV_M2_DPLL_DISP_DPLL_CLKOUT_DIV_SHIFT,
-        dpllPostDivM2);
-
-    /* Now LOCK the PLL by enabling it */
-
-    HW_WR_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_CLKMODE_DPLL_DISP,
-        CM_WKUP_CM_CLKMODE_DPLL_DISP_DPLL_EN,
-        CM_WKUP_CM_CLKMODE_DPLL_DISP_DPLL_EN_SHIFT,
-        CM_WKUP_CM_CLKMODE_DPLL_DISP_DPLL_EN);
-
-    while(0U == HW_RD_FIELD32_RAW(SOC_CM_WKUP_REGS + CM_WKUP_CM_IDLEST_DPLL_DISP,
-        CM_WKUP_CM_IDLEST_DPLL_DISP_ST_DPLL_CLK,
-        CM_WKUP_CM_IDLEST_DPLL_DISP_ST_DPLL_CLK_SHIFT));
-}
-
-/* Function to select the ICSS clock output.
- * Supports configuring the ICSS clock to either 200MHz and 225MHz.
- * L3F clock is used as OCP Clock of PRU-ICSS for 200MHz
- * DISP DPLL clock is used as OCP clock of PRU-ICSS for 225MHz.
- *
- * Note that display clock output will be 225MHz when setting
- * ICSS clock to 225MHz. Display applications should take care of
- * this change.
- */
-Board_STATUS Board_PLLICSSConfig(BoardIcssClkOut clkOut)
-{
-    Board_STATUS status = BOARD_SOK;
-
-    if(clkOut == BOARD_ICSS_PLL_CLK_225MHZ)
-    {
-        /* Change the display PLL to output 225MHz clock */
-        Board_initDispPll(BOARD_ICSS_CLK_225MHZ_DISP_DPLL_MULT,
-                          BOARD_ICSS_CLK_225MHZ_DISP_DPLL_DIV,
-                          BOARD_ICSS_CLK_225MHZ_DISP_DPLL_POST_DIVM2);
-
-        /* Select DISP DPLL clock as OCP clock of PRU-ICSS */
-        HW_WR_REG32(SOC_CM_DPLL_REGS + CM_DPLL_CLKSEL_ICSS_OCP_CLK, 0x01);
-    }
-    else if(clkOut == BOARD_ICSS_PLL_CLK_200MHZ)
-    {
-        /* Set the display PLL to 48MHz default output while using
-           L3F clock output for ICSS.
-           No changes to core PLL are done here as it will be done by SBL */
-        Board_initDispPll(BOARD_DISP_DPLL_DEFAULT_MULT,
-                          BOARD_DISP_DPLL_DEFAULT_DIV,
-                          BOARD_DISP_DPLL_DEFAULT_POST_DIVM2);
-
-        /* Select L3F clock as OCP Clock of PRU-ICSS */
-        HW_WR_REG32(SOC_CM_DPLL_REGS + CM_DPLL_CLKSEL_ICSS_OCP_CLK, 0);
-    }
-    else
-    {
-        /* Unsupported configuration  */
-        status = BOARD_INVALID_PARAM;
-    }
-
-    return status;
-}
 
 /* Set the desired DDR3 configuration -- assumes 66.67 MHz DDR3 clock input */
 Board_STATUS Board_DDR3Init()
