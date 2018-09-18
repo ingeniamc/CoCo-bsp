@@ -28,5 +28,5 @@ cp -rf $SCRIPTPATH/src/common/cocoAM335x $2/packages/ti/board/src/
 cp $SCRIPTPATH/src/common/sorte_cocoam335x_app.cfg $2/packages/ti/drv/pruss/example/apps/sorte/src/
 
 echo "Build PDK, recommended command:"
-echo "# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss"
+echo "# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss nimu nimu-icss"
 echo "If SDK install path is different from default check README.md"
