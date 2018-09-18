@@ -33,6 +33,10 @@
 #ifndef BOARD_CFG_H_
 #define BOARD_CFG_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <ti/starterware/include/hw/soc_am335x.h>
 
 /* UART LLD instance number */
@@ -77,7 +81,7 @@
 
 /* Board ID information */
 #define BOARD_INFO_CPU_NAME             "AM335x"
-#define BOARD_INFO_BOARD_NAME           "COCO"
+#define BOARD_INFO_BOARD_NAME           "COCOAM335x"
 
 /* Mmeory Sections */
 #define BOARD_DDR3_START_ADDR           0x80010000
@@ -90,8 +94,8 @@
 /* I2C address for EEPROM */
 // #define BOARD_I2C_EEPROM_ADDR           (0x50)
 
-/* EEPROM board ID information */
-// #define BOARD_EEPROM_HEADER_LENGTH      4
+// /* EEPROM board ID information */
+#define BOARD_EEPROM_HEADER_LENGTH      0
 // #define BOARD_EEPROM_BOARD_NAME_LENGTH  8
 // #define BOARD_EEPROM_VERSION_LENGTH     4
 // #define BOARD_EEPROM_SERIAL_NO_LENGTH   12
@@ -109,4 +113,15 @@
 /* ICSS EMAC PHY address definitions */
 #define BOARD_ICSS_EMAC_PORT0_PHY_ADDR  (1U)
 #define BOARD_ICSS_EMAC_PORT1_PHY_ADDR  (3U)
+
+typedef enum _BoardIcssClkOut
+{
+    BOARD_ICSS_PLL_CLK_200MHZ,
+    BOARD_ICSS_PLL_CLK_225MHZ
+} BoardIcssClkOut;
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
