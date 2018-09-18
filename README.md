@@ -11,5 +11,10 @@ Run command:
 
 Run command:
 ```
-# patch -p2 <PATH TO REPO>/coco_board.patch 
+find . -type f -print0 | xargs -0 dos2unix
+# patch -p2 < <PATH TO REPO>/coco_board.patch 
 ```
+
+## Build PDK
+
+The script provided for TI, pdksetupenv, assume that SDK install path is home in linux and C:\ in windows. If it is different from that, this script neeed to be adapted. 
