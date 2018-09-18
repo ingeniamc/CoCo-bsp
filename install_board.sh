@@ -2,11 +2,11 @@
 
 display_usage()
 { 
-	echo -e "\nUsage:\n./install_board.sh <PDK VERSION [pdk_am335x_1_0_8, pdk_am335x_1_0_10]> <PATH TO PDK>\n" 
+	echo -e "\nUsage:\n./install_board.sh <PATH TO PDK>\n" 
 }
 
 # if less than two arguments supplied, display usage 
-if [ $# -ne 2 ] 
+if [ $# -ne 1 ] 
 then 
 	display_usage
 	exit 1
@@ -24,11 +24,9 @@ cp $SCRIPTPATH/src/common/am335x_coco_pinmux_data.c $2/packages/ti/starterware/b
 # copy board
 cp -rf $SCRIPTPATH/src/common/cocoAM335x $2/packages/ti/board/src/
 
-if [ $1 == "pdk_am335x_1_0_8" ]
-then
-	cp $SCRIPTPATH/src/$1/sorte_cocoam335x_app.cfg $2/packages/ti/drv/pruss/example/apps/sorte/src/
-fi
+# additional
+cp $SCRIPTPATH/src/common/sorte_cocoam335x_app.cfg $2/packages/ti/drv/pruss/example/apps/sorte/src/
 
 echo "Build PDK, recommended command:"
-echo "# make clean && make"
+echo "# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss"
 echo "If SDK install path is different from default check README.md"
