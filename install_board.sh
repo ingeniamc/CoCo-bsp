@@ -23,7 +23,7 @@ cp $SCRIPTPATH/$1/src/am335x_coco_pinmux_data.c $2/packages/ti/starterware/board
 # copy board
 cp -rf $SCRIPTPATH/$1/src/cocoAM335x $2/packages/ti/board/src/
 
-if [ $1 -eq 'pdk_am335x_1_0_8']
+if [ $1 == "pdk_am335x_1_0_8" ]
 then
 	cp $SCRIPTPATH/$1/src/sorte_cocoam335x_app.cfg $2/packages/ti/drv/pruss/example/apps/sorte/src/
 fi
