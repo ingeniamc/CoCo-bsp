@@ -472,7 +472,7 @@ static pinmuxPerCfg_t gGpio1PinCfg[] =
     },
     {
        /* PIN_UART0_RTSN -> gpio1[9] -> E17 */
-       PIN_UART0_RTSN, 30, \
+       PIN_UART0_RTSN, 9, \
        ( \
            PIN_MODE(7) | \
            ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
