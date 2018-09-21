@@ -15,13 +15,11 @@ Run command:
     # find . -type f -print0 | xargs -0 dos2unix
     # patch -p2 < <PATH TO REPO>/<PATCH NAME>.patch 
     ```
-	
 2. Install the board running the script:
 
     ```
     # ./install_board.sh <PATH TO PDK>
     ```
-
 ### Windows
 1. Open a Linux terminal and execute the patch from the pdk root folder:
 
@@ -29,7 +27,6 @@ Run command:
     # cd /mnt/<...>/pdk_am335x_<version>/
     # patch -p2 < <PATH TO REPO>/<PATCH NAME>.patch 
     ```
-	
 2. If a file fails, update manually the file.
 3. Install the board following the steps of the install_board script manually.
 
@@ -41,5 +38,4 @@ The script provided for TI, pdksetupenv, assumes that SDK install path is home i
     ```
     # make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss nimu nimu-icss
     ```
-	
     (In Windows change make for gmake)
