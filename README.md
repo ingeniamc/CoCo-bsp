@@ -33,6 +33,6 @@ Open a new terminal and run the pdksetupenv script.
 The script provided for TI, pdksetupenv, assumes that SDK install path is home in Linux and C:\ti in Windows. If it is different from that, this script needs to be adapted.
 Build the PDK, recommended command:
 ```
-# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss nimu nimu-icss
+# make clean && make all
 ```
 (In Windows change make for gmake)
