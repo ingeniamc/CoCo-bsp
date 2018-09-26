@@ -33,6 +33,6 @@ Open a new terminal and run the pdksetupenv script.
 The script provided for TI, pdksetupenv, assumes that SDK install path is home in Linux and C:\ti in Windows. If it is different from that, this script needs to be adapted.
 Build the PDK, recommended command:
 ```
-# make clean && make all
+# make clean && make -k all
 ```
 (In Windows change make for gmake)
