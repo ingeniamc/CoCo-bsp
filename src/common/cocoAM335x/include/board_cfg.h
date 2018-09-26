@@ -33,10 +33,14 @@
 #ifndef BOARD_CFG_H_
 #define BOARD_CFG_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <ti/starterware/include/hw/soc_am335x.h>
 
 /* UART LLD instance number */
-#define BOARD_UART_INSTANCE             3
+#define BOARD_UART_INSTANCE             (uint16_t)1U
 
 /* McSPI serializer instance */
 #define BOARD_MCSPI_SERIALIZER_INSTANCE 0
@@ -46,20 +50,20 @@
 
 /* LEDs defines */
 #define GPIO_INTR_LED_RED_BASE_ADDR     SOC_GPIO_1_REGS
-#define GPIO_LED_RED_PIN_NUM            (uint16_t)14U
+#define GPIO_LED_RED_PIN_NUM            (uint16_t)30U
 
 #define GPIO_INTR_LED_GRN_BASE_ADDR     SOC_GPIO_0_REGS
-#define GPIO_LED_GRN_PIN_NUM            (uint16_t)30U
+#define GPIO_LED_GRN_PIN_NUM            (uint16_t)20U
 
 /* No of LEDs connected to GPIOs. */
-#define BOARD_GPIO_LED_NUM              (uint16_t)2U
+#define BOARD_GPIO_LED_NUM              (uint16_t)4U
 
 /* Phy defines */
 #define GPIO_PHY_RESET_BASE_ADDR 		SOC_GPIO_2_REGS
 #define GPIO_PHY_RESET_PIN_NUM	 		(uint16_t)5U
 
-#define GPIO_PHY1_DV_BASE_ADDR 			SOC_GPIO_3_REGS
-#define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)4U
+#define GPIO_PHY1_DV_BASE_ADDR 			SOC_GPIO_2_REGS
+#define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)23U
 
 
 /* Port and pin number mask for MMCSD Card Detect pin.
@@ -77,7 +81,7 @@
 
 /* Board ID information */
 #define BOARD_INFO_CPU_NAME             "AM335x"
-#define BOARD_INFO_BOARD_NAME           "COCO"
+#define BOARD_INFO_BOARD_NAME           "COCOAM335x"
 
 /* Mmeory Sections */
 #define BOARD_DDR3_START_ADDR           0x80010000
@@ -90,8 +94,8 @@
 /* I2C address for EEPROM */
 // #define BOARD_I2C_EEPROM_ADDR           (0x50)
 
-/* EEPROM board ID information */
-// #define BOARD_EEPROM_HEADER_LENGTH      4
+// /* EEPROM board ID information */
+#define BOARD_EEPROM_HEADER_LENGTH      0
 // #define BOARD_EEPROM_BOARD_NAME_LENGTH  8
 // #define BOARD_EEPROM_VERSION_LENGTH     4
 // #define BOARD_EEPROM_SERIAL_NO_LENGTH   12
@@ -109,4 +113,15 @@
 /* ICSS EMAC PHY address definitions */
 #define BOARD_ICSS_EMAC_PORT0_PHY_ADDR  (1U)
 #define BOARD_ICSS_EMAC_PORT1_PHY_ADDR  (3U)
+
+typedef enum _BoardIcssClkOut
+{
+    BOARD_ICSS_PLL_CLK_200MHZ,
+    BOARD_ICSS_PLL_CLK_225MHZ
+} BoardIcssClkOut;
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

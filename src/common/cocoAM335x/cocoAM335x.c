@@ -41,11 +41,11 @@
 #include "board_cfg.h"
 
 /* EEPROM data on COCO 1.0A */
-// char eepromData[I2C_EEPROM_RX_LENGTH] = {0x55, 0x33, 0xEE, 0x41, 0x33,
-//                                          0x33, 0x35, 0x5f, 0x49, 0x43};
+char eepromData[I2C_EEPROM_RX_LENGTH] = {0x55, 0x33, 0xEE, 0x41, 0x33,
+                                         0x33, 0x35, 0x5f, 0x49, 0x43};
 
 /* Serializer data */
-// char serializerData[1] = {0x81};										 
+char serializerData[1] = {0x81};										 
 
 Board_gblObj Board_obj;
 
@@ -172,7 +172,7 @@ Board_STATUS Board_moduleClockInit()
         status = PRCMModuleEnable(CHIPDB_MOD_ID_RTCSS, 0U, 0U);
     }
 
-    return BOARD_SOK;
+    return status;
 }
 
 Board_STATUS Board_init(Board_initCfg cfg)
