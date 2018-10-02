@@ -882,12 +882,12 @@ static pinmuxPerCfg_t gPru_icss1PinCfg[] =
            ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
        ) \
     },
-    {
+     {
        /* PHY1 -> pr1_mii1_rxlink -> U18 */
        PIN_GPMC_BE1N, (uint16_t)PINMUX_SS_PRU_ICSS_MII1, \
        ( \
-           PIN_MODE(5) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) | (PIN_PULL_TYPE_SEL)) \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_PULL_TYPE_SEL) & (~PIN_RX_ACTIVE)) \
        ) \
     },
     {

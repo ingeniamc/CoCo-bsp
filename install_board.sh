@@ -14,18 +14,18 @@ fi
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
-echo "Copy new board files to path $2"
+echo "Copy new board files to path $1"
 
 # copy starterware board
-cp $SCRIPTPATH/src/common/am335x_coco.c $2/packages/ti/starterware/board/am335x/
-cp $SCRIPTPATH/src/common/am335x_coco.h $2/packages/ti/starterware/board/am335x/
-cp $SCRIPTPATH/src/common/am335x_coco_pinmux_data.c $2/packages/ti/starterware/board/am335x/
+cp $SCRIPTPATH/src/common/am335x_coco.c $1/packages/ti/starterware/board/am335x/
+cp $SCRIPTPATH/src/common/am335x_coco.h $1/packages/ti/starterware/board/am335x/
+cp $SCRIPTPATH/src/common/am335x_coco_pinmux_data.c $1/packages/ti/starterware/board/am335x/
 
 # copy board
-cp -rf $SCRIPTPATH/src/common/cocoAM335x $2/packages/ti/board/src/
+cp -rf $SCRIPTPATH/src/common/cocoAM335x $1/packages/ti/board/src/
 
 # additional
-cp $SCRIPTPATH/src/common/sorte_cocoam335x_app.cfg $2/packages/ti/drv/pruss/example/apps/sorte/src/
+cp $SCRIPTPATH/src/common/sorte_cocoam335x_app.cfg $1/packages/ti/drv/pruss/example/apps/sorte/src/
 
 echo "Build PDK, recommended command:"
 echo "# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss nimu nimu-icss"
