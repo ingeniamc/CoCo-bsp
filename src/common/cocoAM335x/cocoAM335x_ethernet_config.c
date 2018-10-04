@@ -224,6 +224,9 @@ static void Board_phyReset(void)
 Board_STATUS Board_icssEthConfig(void);  /* for misra warning */
 Board_STATUS Board_icssEthConfig(void)
 {
+    HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x7; /* lcd_data12 (V2) (pru1_mii0_rxlink) pin set to gpio0_8 */
+    HWREG(SOC_CONTROL_REGS + 0x878) |= 0x7; /* gpmc_be1n (U18) (pru1_mii1_rxlink) pin set to gpio1_28 */
+
     gpioPinObj_t tGpioBufsEnable, tGpioLedLink0, tGpioLedLink1;
     tGpioBufsEnable = tGpioLedLink0 = tGpioLedLink1 = gpioPinObjDefault;
 
@@ -243,6 +246,14 @@ Board_STATUS Board_icssEthConfig(void)
     GPIOPinWrite(tGpioLedLink1.instAddr, tGpioLedLink1.pinNum, GPIO_PIN_HIGH);
 
     Board_phyReset();
+
+    HWREG(SOC_CONTROL_REGS + 0x8D0) &= 0xFFFFFFF8; /* lcd_data12 (V2) return to pru1_mii0_rxlink mode */
+    HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x878) &= 0xFFFFFFF8; /* gpmc_be1n (U18) return to pru1_mii1_rxlink mode */
+    HWREG(SOC_CONTROL_REGS + 0x878) |= 0x5;
+
+    Board_delay(10000);
+
     return BOARD_SOK;
 }
 
