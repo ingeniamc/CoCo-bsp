@@ -224,20 +224,36 @@ static void Board_phyReset(void)
 Board_STATUS Board_icssEthConfig(void);  /* for misra warning */
 Board_STATUS Board_icssEthConfig(void)
 {
-    gpioPinObj_t tGpioBufsEnable, tGpioLedLink;
-    tGpioBufsEnable = tGpioLedLink = gpioPinObjDefault;
+    HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x7; /* lcd_data12 (V2) (pru1_mii0_rxlink) pin set to gpio0_8 */
+    HWREG(SOC_CONTROL_REGS + 0x878) |= 0x7; /* gpmc_be1n (U18) (pru1_mii1_rxlink) pin set to gpio1_28 */
+
+    gpioPinObj_t tGpioBufsEnable, tGpioLedLink0, tGpioLedLink1;
+    tGpioBufsEnable = tGpioLedLink0 = tGpioLedLink1 = gpioPinObjDefault;
 
     tGpioBufsEnable.instAddr = SOC_GPIO_2_REGS;
     tGpioBufsEnable.pinNum =  23;
     Board_initGPIO(&tGpioBufsEnable);
     GPIOPinWrite(tGpioBufsEnable.instAddr, tGpioBufsEnable.pinNum, GPIO_PIN_HIGH);
     
-    tGpioLedLink.instAddr = SOC_GPIO_0_REGS;
-    tGpioLedLink.pinNum =  8;
-    Board_initGPIO(&tGpioLedLink);
-    GPIOPinWrite(tGpioLedLink.instAddr, tGpioLedLink.pinNum, GPIO_PIN_HIGH);
+    tGpioLedLink0.instAddr = SOC_GPIO_0_REGS;
+    tGpioLedLink0.pinNum =  8;
+    Board_initGPIO(&tGpioLedLink0);
+    GPIOPinWrite(tGpioLedLink0.instAddr, tGpioLedLink0.pinNum, GPIO_PIN_HIGH);
+
+    tGpioLedLink1.instAddr = SOC_GPIO_1_REGS;
+    tGpioLedLink1.pinNum =  28;
+    Board_initGPIO(&tGpioLedLink1);
+    GPIOPinWrite(tGpioLedLink1.instAddr, tGpioLedLink1.pinNum, GPIO_PIN_HIGH);
 
     Board_phyReset();
+
+    HWREG(SOC_CONTROL_REGS + 0x8D0) &= 0xFFFFFFF8; /* lcd_data12 (V2) return to pru1_mii0_rxlink mode */
+    HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x878) &= 0xFFFFFFF8; /* gpmc_be1n (U18) return to pru1_mii1_rxlink mode */
+    HWREG(SOC_CONTROL_REGS + 0x878) |= 0x5;
+
+    Board_delay(10000);
+
     return BOARD_SOK;
 }
 
