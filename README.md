@@ -12,7 +12,7 @@ Install the board running the script:
 
 #### Build PDK
 Open a new terminal and run the pdksetupenv script.
-The script provided for TI, pdksetupenv, assumes that SDK install path is home in Linux and C:\ti in Windows. If it is different from that, this script needs to be adapted.
+The script provided for TI, pdksetupenv, assumes that SDK install path is home. If it is different from that, this the setupenv script needs to be adapted.
 Build the PDK, recommended command:
 
 	# make clean && make -k all
@@ -46,7 +46,7 @@ Build the PDK, recommended command:
 	    # patch -p2 --binary < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch && patch -p2 < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch
 
     
-5. Open a windows command prompt and run:
+5. Open a **windows command prompt** and run:
 
 
 	    # cd C:\ti\pdk_am335x_1.0.8\packages && pdksetupenv.bat && gmake clean && gmake -j8
