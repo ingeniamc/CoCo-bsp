@@ -29,23 +29,26 @@ Build the PDK, recommended command:
     - EDMA 2.12.05.29
 
     [Download](http://software-dl.ti.com/processor-sdk-rtos/esd/AM335X/04_01_00_06/index_FDS.html)
+    
 3. Open Ubuntu terminal and move to board path:
     ```
     # cd /mnt/c/Users/<Your User>/<Board Path>
-    ````
+    ```
     Run next command:
-    ````
-    cp src/common/am335x_coco.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/am335x_coco.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/am335x_coco_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/sorte_cocoam335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoAM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
-    ````
+    ```
+    # cp src/common/am335x_coco.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/am335x_coco.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/am335x_coco_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/sorte_cocoam335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoAM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
+    ```
+    
 4. Run next command remplacing <PATH TO BOARD> to the local path to board folder
     ```
     # cd /mnt/c/ti/pdk_am335x_1_0_8/
     # patch -p2 --binary < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch && patch -p2 < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch
     ```
+    
 5. Open a windows command prompt and run:
-    ````
-    cd C:\ti\pdk_am335x_1.0.8\packages && pdksetupenv.bat && gmake clean && gmake -j8
-    ````
+    ```
+    # cd C:\ti\pdk_am335x_1.0.8\packages && pdksetupenv.bat && gmake clean && gmake -j8
+    ```
 
 # Develop
 ## Create patch
