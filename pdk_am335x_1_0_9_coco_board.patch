@@ -183,25 +183,6 @@
  ifeq ($(BOARD), skAM335x)
  export DEVICE=AM335x
  endif
---- ./pdk_am335x_1_0_9/packages/ti/board/diag/makefile	2017-12-23 16:11:12.000000000 +0100
-+++ /mnt/c/ti/./pdk_am335x_1_0_9/packages/ti/board/diag/makefile	2018-11-13 16:25:44.027734200 +0100
-@@ -76,7 +76,7 @@
- export SPISCRIPT=./create_spi.sh
- endif
- 
--ALL_BOARDS = idkAM571x idkAM572x idkAM574x evmAM572x evmK2G iceK2G evmAM335x evmAM437x idkAM437x skAM437x bbbAM335x icev2AM335x skAM335x evmOMAPL137 iceAMIC110
-+ALL_BOARDS = idkAM571x idkAM572x idkAM574x evmAM572x evmK2G iceK2G evmAM335x evmAM437x idkAM437x skAM437x bbbAM335x icev2AM335x cocoAM335x skAM335x evmOMAPL137 iceAMIC110
- 
- idkAM571x_DIAG = dcan eeprom emmc framework framework_loader gmac haptics icss_emac lcd_touchscreen led led_industrial mcspi mem mmcsd pmic qspi timer uart
- idkAM572x_DIAG = dcan eeprom emmc framework framework_loader gmac haptics icss_emac lcd_touchscreen led led_industrial mcspi mem mmcsd pmic qspi uart
-@@ -91,6 +91,7 @@
- skAM437x_DIAG = framework framework_loader eeprom led uart mmcsd mem accelerometer rtc pmic adc button
- bbbAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
- icev2AM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
-+cocoAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led rtc pmic
- skAM335x_DIAG = framework framework_loader eeprom uart mmcsd mem led accelerometer rtc pmic adc button
- evmOMAPL137_DIAG = mcasp mcasp_audiodc
- iceAMIC110_DIAG = framework framework_loader eeprom uart led mem mcspi ddrless_app
 --- ./pdk_am335x_1_0_9/packages/ti/board/diag/mem/makefile	2017-12-23 16:11:12.000000000 +0100
 +++ /mnt/c/ti/./pdk_am335x_1_0_9/packages/ti/board/diag/mem/makefile	2018-11-13 16:27:26.499617800 +0100
 @@ -92,6 +92,10 @@
