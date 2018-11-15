@@ -7,7 +7,7 @@ Execute the following commands from the pdk root folder:
 
 Install the board running the script:
 
-	# ./install_board.sh <PATH TO PDK>
+	# ./install_board.sh <PATH TO PDK> <PDK VERSION>
 
 
 #### Build PDK
