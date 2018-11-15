@@ -69,8 +69,8 @@ extern "C" {
 #define GPIO_PHY1_DV_PIN_NUM 			(uint16_t)23U
 
 /* Monitor */
-#define BOARD_MONITOR_TIMER_INSTANCE        (uint16_t)5U
-#define BOARD_MONITOR_TIMER_INSTANCE_INDEX  (uint16_t)3U
+#define BOARD_CCP_TIMER_INSTANCE        (uint16_t)5U
+#define BOARD_CCP_TIMER_INSTANCE_INDEX  (uint16_t)3U
 
 /* Port and pin number mask for MMCSD Card Detect pin.
    Bits 7-0: Pin number  and Bits 15-8: (Port number + 1) */
