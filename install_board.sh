@@ -2,22 +2,19 @@
 
 display_usage()
 { 
-	echo -e "\nUsage:\n./install_board.sh <PATH TO PDK> <PDK_version>\n"
-	echo "<PDK_version> must be <x_y_z>\n"
+	echo -e "\nUsage:\n./install_board.sh <PATH TO PDK>\n" 
 }
 
 # if less than two arguments supplied, display usage 
-if [ $# -ne 2 ] 
+if [ $# -ne 1 ] 
 then 
 	display_usage
 	exit 1
 fi
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-PDK_VERSION="pdk_$2"
 
 echo "Copy new board files to path $1"
-echo "Pdk version: $2"
 
 # copy starterware board
 cp $SCRIPTPATH/src/common/am335x_coco.c $1/packages/ti/starterware/board/am335x/
@@ -28,8 +25,7 @@ cp $SCRIPTPATH/src/common/am335x_coco_pinmux_data.c $1/packages/ti/starterware/b
 cp -rf $SCRIPTPATH/src/common/cocoAM335x $1/packages/ti/board/src/
 
 # additional
-
-cp $SCRIPTPATH/src/$PDK_VERSION/sorte_cocoam335x_app.cfg $1/packages/ti/drv/pruss/example/apps/sorte/src/
+cp $SCRIPTPATH/src/common/sorte_cocoam335x_app.cfg $1/packages/ti/drv/pruss/example/apps/sorte/src/
 
 echo "Build PDK, recommended command:"
 echo "# make clean && make LIMIT_SOCS="am335x" starterware_libs board_lib spi csl gpio uart i2c icss-emac profiling osal pruss nimu nimu-icss"
