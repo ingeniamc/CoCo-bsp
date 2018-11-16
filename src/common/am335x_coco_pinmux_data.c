@@ -451,7 +451,7 @@ static pinmuxPerCfg_t gGpio1PinCfg[] =
        PIN_GPMC_AD0, 0, \
        ( \
            PIN_MODE(7) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL) & (~PIN_PULL_UD_EN & ~PIN_RX_ACTIVE)) \
        ) \
     },
     {
@@ -483,7 +483,7 @@ static pinmuxPerCfg_t gGpio1PinCfg[] =
        PIN_GPMC_AD12, 12, \
        ( \
            PIN_MODE(7) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+           ((PIN_PULL_TYPE_SEL) & (~PIN_PULL_UD_EN & ~PIN_RX_ACTIVE)) \
        ) \
     },
     {
