@@ -37,8 +37,13 @@ Build the PDK, recommended command:
 
     Run next command:
 
-	    # cp src/common/am335x_coco.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/am335x_coco.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/am335x_coco_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/sorte_cocoam335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoAM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
-    
+    	# cp src/common/cocoV1/am335x_coco.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV1/am335x_coco
+		.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV1/am335x_coco_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV1/sort
+		e_cocoam335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoV1/cocoAM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
+		# cp src/common/cocoV2/am335x_coco.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV2/am335x_coco
+		.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV2/am335x_coco_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV2/sort
+		e_cocoam335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoV2/cocoAM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
+	    
 4. Replace <PATH TO BOARD> to the local path to board folder, and run next commands:
 	
 	
