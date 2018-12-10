@@ -57,7 +57,7 @@ extern "C" {
 /* ========================================================================== */
 
 #define BOARD_AM335X_COCOV2_BOARD_NAME ("COCO_BOARD")
-#define BOARD_AM335X_COCOV2_BOARD_VERSION ("1.0A")
+#define BOARD_AM335X_COCOV2_BOARD_VERSION ("2.0A")
 
 
 /* ========================================================================== */
