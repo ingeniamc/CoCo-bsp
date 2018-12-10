@@ -224,91 +224,172 @@ static void Board_phyReset(void)
 Board_STATUS Board_icssEthConfig(void);  /* for misra warning */
 Board_STATUS Board_icssEthConfig(void)
 {
-    HWREG(SOC_CONTROL_REGS + 0x824) |= 0x7; /* (T10) (COL) pin set to gpio0_23 */
-    HWREG(SOC_CONTROL_REGS + 0x8CC) |= 0x7; /* (U4) (RX_D0) pin set to gpio2_17 */
-    HWREG(SOC_CONTROL_REGS + 0x8C8) |= 0x7; /* (U3) (RX_D1) pin set to gpio2_16 */
-    HWREG(SOC_CONTROL_REGS + 0x8C4) |= 0x7; /* (U2) (RX_D2) pin set to gpio2_15 */
-    HWREG(SOC_CONTROL_REGS + 0x8C0) |= 0x7; /* (U1) (RX_D3) pin set to gpio2_14 */
-    HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x7; /* (V2) (LED0) pin set to gpio0_8 */
-    HWREG(SOC_CONTROL_REGS + 0x8E8) |= 0x7; /* (V5) (CRS) pin set to gpio2_24 */
-    HWREG(SOC_CONTROL_REGS + 0x8D4) |= 0x7; /* (V3) (RX_ERR) pin set to gpio0_9 */
-    HWREG(SOC_CONTROL_REGS + 0x8DC) |= 0x7; /* (T5) (RX_DV) pin set to gpio0_11 */
+    HWREG(SOC_CONTROL_REGS + 0x824) |= 0x7; /* (T10) (PHY0_COL) pin set to gpio0_23 */
+    HWREG(SOC_CONTROL_REGS + 0x8CC) |= 0x7; /* (U4) (PHY0_RX_D0) pin set to gpio2_17 */
+    HWREG(SOC_CONTROL_REGS + 0x8C8) |= 0x7; /* (U3) (PHY0_RX_D1) pin set to gpio2_16 */
+    HWREG(SOC_CONTROL_REGS + 0x8C4) |= 0x7; /* (U2) (PHY0_RX_D2) pin set to gpio2_15 */
+    HWREG(SOC_CONTROL_REGS + 0x8C0) |= 0x7; /* (U1) (PHY0_RX_D3) pin set to gpio2_14 */
+    HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x7; /* (V2) (PHY0_LED0) pin set to gpio0_8 */
+    HWREG(SOC_CONTROL_REGS + 0x8E8) |= 0x7; /* (V5) (PHY0_CRS) pin set to gpio2_24 */
+    HWREG(SOC_CONTROL_REGS + 0x8D4) |= 0x7; /* (V3) (PHY0_RX_ERR) pin set to gpio0_9 */
+    HWREG(SOC_CONTROL_REGS + 0x8DC) |= 0x7; /* (T5) (PHY0_RX_DV) pin set to gpio0_11 */
 
-    gpioPinObj_t tGpioBufsEnable, tGpioCol, tGpioRxD0, tGpioRxD1, tGpioRxD2, tGpioRxD3, tGpioLed, tGpioCrs, tGpioRxErr, tGpioRxDv;
-    tGpioBufsEnable = tGpioCol = tGpioRxD0 = tGpioRxD1 = tGpioRxD2 = tGpioRxD3 = tGpioLed = tGpioCrs = tGpioRxErr = tGpioRxDv = gpioPinObjDefault;
+    HWREG(SOC_CONTROL_REGS + 0x870) |= 0x7; /* (T17) (PHY1_COL) pin set to gpio0_30 */
+    HWREG(SOC_CONTROL_REGS + 0x860) |= 0x7; /* (V16) (PHY1_RX_D0) pin set to gpio1_24 */
+    HWREG(SOC_CONTROL_REGS + 0x85C) |= 0x7; /* (T15) (PHY1_RX_D1) pin set to gpio1_23 */
+    HWREG(SOC_CONTROL_REGS + 0x858) |= 0x7; /* (U15) (PHY1_RX_D2) pin set to gpio1_22 */
+    HWREG(SOC_CONTROL_REGS + 0x854) |= 0x7; /* (V15) (PHY1_RX_D3) pin set to gpio1_21 */
+    HWREG(SOC_CONTROL_REGS + 0x878) |= 0x7; /* (U18) (PHY1_LED0) pin set to gpio1_28 */
+    HWREG(SOC_CONTROL_REGS + 0x8EC) |= 0x7; /* (R6) (PHY1_CRS) pin set to gpio2_25 */
+    HWREG(SOC_CONTROL_REGS + 0x86C) |= 0x7; /* (V17) (PHY1_RX_ERR) pin set to gpio1_27 */
+    HWREG(SOC_CONTROL_REGS + 0x868) |= 0x7; /* (T16) (PHY1_RX_DV) pin set to gpio1_26 */
 
+    gpioPinObj_t tGpioBufsEnable;
+    gpioPinObj_t tGpioPhy0Col, tGpioPhy0RxD0, tGpioPhy0RxD1, tGpioPhy0RxD2, tGpioPhy0RxD3, tGpioPhy0Led, tGpioPhy0Crs, tGpioPhy0RxErr, tGpioPhy0RxDv;
+    gpioPinObj_t tGpioPhy1Col, tGpioPhy1RxD0, tGpioPhy1RxD1, tGpioPhy1RxD2, tGpioPhy1RxD3, tGpioPhy1Led, tGpioPhy1Crs, tGpioPhy1RxErr, tGpioPhy1RxDv;
+    tGpioBufsEnable = gpioPinObjDefault;
+    tGpioPhy0Col = tGpioPhy0RxD0 = tGpioPhy0RxD1 = tGpioPhy0RxD2 = tGpioPhy0RxD3 = tGpioPhy0Led = tGpioPhy0Crs = tGpioPhy0RxErr = tGpioPhy0RxDv = gpioPinObjDefault;
+    tGpioPhy1Col = tGpioPhy1RxD0 = tGpioPhy1RxD1 = tGpioPhy1RxD2 = tGpioPhy1RxD3 = tGpioPhy1Led = tGpioPhy1Crs = tGpioPhy1RxErr = tGpioPhy1RxDv = gpioPinObjDefault;
+
+    /** Enable bufs */
     tGpioBufsEnable.instAddr = SOC_GPIO_2_REGS;
     tGpioBufsEnable.pinNum =  23;
     Board_initGPIO(&tGpioBufsEnable);
     GPIOPinWrite(tGpioBufsEnable.instAddr, tGpioBufsEnable.pinNum, GPIO_PIN_HIGH);  
     
-    tGpioCol.instAddr = SOC_GPIO_0_REGS;
-    tGpioCol.pinNum =  23;
-    Board_initGPIO(&tGpioCol);
-    GPIOPinWrite(tGpioCol.instAddr, tGpioCol.pinNum, GPIO_PIN_HIGH);
+    /* Phy0 */
+    tGpioPhy0Col.instAddr = SOC_GPIO_0_REGS;
+    tGpioPhy0Col.pinNum =  23;
+    Board_initGPIO(&tGpioPhy0Col);
+    GPIOPinWrite(tGpioPhy0Col.instAddr, tGpioPhy0Col.pinNum, GPIO_PIN_HIGH);
 
-    tGpioRxD0.instAddr = SOC_GPIO_2_REGS;
-    tGpioRxD0.pinNum =  17;
-    Board_initGPIO(&tGpioRxD0);
-    GPIOPinWrite(tGpioRxD0.instAddr, tGpioRxD0.pinNum, GPIO_PIN_LOW); 
+    tGpioPhy0RxD0.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhy0RxD0.pinNum =  17;
+    Board_initGPIO(&tGpioPhy0RxD0);
+    GPIOPinWrite(tGpioPhy0RxD0.instAddr, tGpioPhy0RxD0.pinNum, GPIO_PIN_LOW); 
 
-    tGpioRxD1.instAddr = SOC_GPIO_2_REGS;
-    tGpioRxD1.pinNum =  16;
-    Board_initGPIO(&tGpioRxD1);
-    GPIOPinWrite(tGpioRxD1.instAddr, tGpioRxD1.pinNum, GPIO_PIN_LOW); 
+    tGpioPhy0RxD1.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhy0RxD1.pinNum =  16;
+    Board_initGPIO(&tGpioPhy0RxD1);
+    GPIOPinWrite(tGpioPhy0RxD1.instAddr, tGpioPhy0RxD1.pinNum, GPIO_PIN_LOW); 
 
-    tGpioRxD2.instAddr = SOC_GPIO_2_REGS;
-    tGpioRxD2.pinNum =  15;
-    Board_initGPIO(&tGpioRxD2);
-    GPIOPinWrite(tGpioRxD2.instAddr, tGpioRxD2.pinNum, GPIO_PIN_LOW); 
+    tGpioPhy0RxD2.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhy0RxD2.pinNum =  15;
+    Board_initGPIO(&tGpioPhy0RxD2);
+    GPIOPinWrite(tGpioPhy0RxD2.instAddr, tGpioPhy0RxD2.pinNum, GPIO_PIN_LOW); 
 
-    tGpioRxD3.instAddr = SOC_GPIO_2_REGS;
-    tGpioRxD3.pinNum =  14;
-    Board_initGPIO(&tGpioRxD3);
-    GPIOPinWrite(tGpioRxD3.instAddr, tGpioRxD3.pinNum, GPIO_PIN_LOW); 
+    tGpioPhy0RxD3.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhy0RxD3.pinNum =  14;
+    Board_initGPIO(&tGpioPhy0RxD3);
+    GPIOPinWrite(tGpioPhy0RxD3.instAddr, tGpioPhy0RxD3.pinNum, GPIO_PIN_LOW); 
 
-    tGpioLed.instAddr = SOC_GPIO_0_REGS;
-    tGpioLed.pinNum =  8;
-    Board_initGPIO(&tGpioLed);
-    GPIOPinWrite(tGpioLed.instAddr, tGpioLed.pinNum, GPIO_PIN_HIGH); 
+    tGpioPhy0Led.instAddr = SOC_GPIO_0_REGS;
+    tGpioPhy0Led.pinNum =  8;
+    Board_initGPIO(&tGpioPhy0Led);
+    GPIOPinWrite(tGpioPhy0Led.instAddr, tGpioPhy0Led.pinNum, GPIO_PIN_HIGH); 
 
-    tGpioCrs.instAddr = SOC_GPIO_2_REGS;
-    tGpioCrs.pinNum =  24;
-    Board_initGPIO(&tGpioCrs);
-    GPIOPinWrite(tGpioCrs.instAddr, tGpioCrs.pinNum, GPIO_PIN_LOW); 
+    tGpioPhy0Crs.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhy0Crs.pinNum =  24;
+    Board_initGPIO(&tGpioPhy0Crs);
+    GPIOPinWrite(tGpioPhy0Crs.instAddr, tGpioPhy0Crs.pinNum, GPIO_PIN_LOW); 
 
-    tGpioRxErr.instAddr = SOC_GPIO_0_REGS;
-    tGpioRxErr.pinNum =  9;
-    Board_initGPIO(&tGpioRxErr);
-    GPIOPinWrite(tGpioRxErr.instAddr, tGpioRxErr.pinNum, GPIO_PIN_HIGH); 
+    tGpioPhy0RxErr.instAddr = SOC_GPIO_0_REGS;
+    tGpioPhy0RxErr.pinNum =  9;
+    Board_initGPIO(&tGpioPhy0RxErr);
+    GPIOPinWrite(tGpioPhy0RxErr.instAddr, tGpioPhy0RxErr.pinNum, GPIO_PIN_HIGH); 
 
-    tGpioRxDv.instAddr = SOC_GPIO_0_REGS;
-    tGpioRxDv.pinNum =  11;
-    Board_initGPIO(&tGpioRxDv);
-    GPIOPinWrite(tGpioRxDv.instAddr, tGpioRxDv.pinNum, GPIO_PIN_LOW); 
+    tGpioPhy0RxDv.instAddr = SOC_GPIO_0_REGS;
+    tGpioPhy0RxDv.pinNum =  11;
+    Board_initGPIO(&tGpioPhy0RxDv);
+    GPIOPinWrite(tGpioPhy0RxDv.instAddr, tGpioPhy0RxDv.pinNum, GPIO_PIN_LOW); 
+
+    /* Phy1 */
+    tGpioPhy1Col.instAddr = SOC_GPIO_0_REGS;
+    tGpioPhy1Col.pinNum =  30;
+    Board_initGPIO(&tGpioPhy1Col);
+    GPIOPinWrite(tGpioPhy1Col.instAddr, tGpioPhy1Col.pinNum, GPIO_PIN_HIGH);
+
+    tGpioPhy1RxD0.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1RxD0.pinNum =  24;
+    Board_initGPIO(&tGpioPhy1RxD0);
+    GPIOPinWrite(tGpioPhy1RxD0.instAddr, tGpioPhy1RxD0.pinNum, GPIO_PIN_HIGH); 
+
+    tGpioPhy1RxD1.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1RxD1.pinNum =  23;
+    Board_initGPIO(&tGpioPhy1RxD1);
+    GPIOPinWrite(tGpioPhy1RxD1.instAddr, tGpioPhy1RxD1.pinNum, GPIO_PIN_LOW); 
+
+    tGpioPhy1RxD2.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1RxD2.pinNum =  22;
+    Board_initGPIO(&tGpioPhy1RxD2);
+    GPIOPinWrite(tGpioPhy1RxD2.instAddr, tGpioPhy1RxD2.pinNum, GPIO_PIN_LOW); 
+
+    tGpioPhy1RxD3.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1RxD3.pinNum =  21;
+    Board_initGPIO(&tGpioPhy1RxD3);
+    GPIOPinWrite(tGpioPhy1RxD3.instAddr, tGpioPhy1RxD3.pinNum, GPIO_PIN_LOW); 
+
+    tGpioPhy1Led.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1Led.pinNum =  28;
+    Board_initGPIO(&tGpioPhy1Led);
+    GPIOPinWrite(tGpioPhy1Led.instAddr, tGpioPhy1Led.pinNum, GPIO_PIN_HIGH); 
+
+    tGpioPhy1Crs.instAddr = SOC_GPIO_2_REGS;
+    tGpioPhy1Crs.pinNum =  25;
+    Board_initGPIO(&tGpioPhy1Crs);
+    GPIOPinWrite(tGpioPhy1Crs.instAddr, tGpioPhy1Crs.pinNum, GPIO_PIN_LOW); 
+
+    tGpioPhy1RxErr.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1RxErr.pinNum =  27;
+    Board_initGPIO(&tGpioPhy1RxErr);
+    GPIOPinWrite(tGpioPhy1RxErr.instAddr, tGpioPhy1RxErr.pinNum, GPIO_PIN_HIGH); 
+
+    tGpioPhy1RxDv.instAddr = SOC_GPIO_1_REGS;
+    tGpioPhy1RxDv.pinNum =  26;
+    Board_initGPIO(&tGpioPhy1RxDv);
+    GPIOPinWrite(tGpioPhy1RxDv.instAddr, tGpioPhy1RxDv.pinNum, GPIO_PIN_LOW); 
     
     Board_phyReset();
 
     Board_delay(10000);
 
-    HWREG(SOC_CONTROL_REGS + 0x824) &= 0xFFFFFFF8; /* (T10) (COL) pin set to gpio0_23 */
+    HWREG(SOC_CONTROL_REGS + 0x824) &= 0xFFFFFFF8; /* (T10) (PHY0_COL) pin set to gpio0_23 */
     HWREG(SOC_CONTROL_REGS + 0x824) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8CC) &= 0xFFFFFFF8; /* (U4) (RX_D0) pin set to gpio2_17 */
+    HWREG(SOC_CONTROL_REGS + 0x8CC) &= 0xFFFFFFF8; /* (U4) (PHY0_RX_D0) pin set to gpio2_17 */
     HWREG(SOC_CONTROL_REGS + 0x8CC) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8C8) &= 0xFFFFFFF8; /* (U3) (RX_D1) pin set to gpio2_16 */
+    HWREG(SOC_CONTROL_REGS + 0x8C8) &= 0xFFFFFFF8; /* (U3) (PHY0_RX_D1) pin set to gpio2_16 */
     HWREG(SOC_CONTROL_REGS + 0x8C8) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8C4) &= 0xFFFFFFF8; /* (U2) (RX_D2) pin set to gpio2_15 */
+    HWREG(SOC_CONTROL_REGS + 0x8C4) &= 0xFFFFFFF8; /* (U2) (PHY0_RX_D2) pin set to gpio2_15 */
     HWREG(SOC_CONTROL_REGS + 0x8C4) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8C0) &= 0xFFFFFFF8; /* (U1) (RX_D3) pin set to gpio2_14 */
+    HWREG(SOC_CONTROL_REGS + 0x8C0) &= 0xFFFFFFF8; /* (U1) (PHY0_RX_D3) pin set to gpio2_14 */
     HWREG(SOC_CONTROL_REGS + 0x8C0) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8D0) &= 0xFFFFFFF8; /* (V2) (LED0) pin set to gpio0_8 */
+    HWREG(SOC_CONTROL_REGS + 0x8D0) &= 0xFFFFFFF8; /* (V2) (PHY0_LED0) pin set to gpio0_8 */
     HWREG(SOC_CONTROL_REGS + 0x8D0) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8E8) &= 0xFFFFFFF8; /* (V5) (CRS) pin set to gpio2_24 */
+    HWREG(SOC_CONTROL_REGS + 0x8E8) &= 0xFFFFFFF8; /* (V5) (PHY0_CRS) pin set to gpio2_24 */
     HWREG(SOC_CONTROL_REGS + 0x8E8) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8D4) &= 0xFFFFFFF8; /* (V3) (RX_ERR) pin set to gpio0_9 */
+    HWREG(SOC_CONTROL_REGS + 0x8D4) &= 0xFFFFFFF8; /* (V3) (PHY0_RX_ERR) pin set to gpio0_9 */
     HWREG(SOC_CONTROL_REGS + 0x8D4) |= 0x5;
-    HWREG(SOC_CONTROL_REGS + 0x8DC) &= 0xFFFFFFF8; /* (T5) (RX_DV) pin set to gpio0_11 */
+    HWREG(SOC_CONTROL_REGS + 0x8DC) &= 0xFFFFFFF8; /* (T5) (PHY0_RX_DV) pin set to gpio0_11 */
     HWREG(SOC_CONTROL_REGS + 0x8DC) |= 0x5;
+
+    HWREG(SOC_CONTROL_REGS + 0x870) &= 0xFFFFFFF8; /* (T17) (PHY1_COL) pin set to gpio0_30 */
+    HWREG(SOC_CONTROL_REGS + 0x870) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x860) &= 0xFFFFFFF8; /* (V16) (PHY1_RX_D0) pin set to gpio1_24 */
+    HWREG(SOC_CONTROL_REGS + 0x860) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x85C) &= 0xFFFFFFF8; /* (T15) (PHY1_RX_D1) pin set to gpio1_23 */
+    HWREG(SOC_CONTROL_REGS + 0x85C) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x858) &= 0xFFFFFFF8; /* (U15) (PHY1_RX_D2) pin set to gpio1_22 */
+    HWREG(SOC_CONTROL_REGS + 0x858) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x854) &= 0xFFFFFFF8; /* (V15) (PHY1_RX_D3) pin set to gpio1_21 */
+    HWREG(SOC_CONTROL_REGS + 0x854) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x878) &= 0xFFFFFFF8; /* (U18) (PHY1_LED0) pin set to gpio1_28 */
+    HWREG(SOC_CONTROL_REGS + 0x878) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x8EC) &= 0xFFFFFFF8; /* (R6) (PHY1_CRS) pin set to gpio2_25 */
+    HWREG(SOC_CONTROL_REGS + 0x8EC) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x86C) &= 0xFFFFFFF8; /* (V17) (PHY1_RX_ERR) pin set to gpio1_27 */
+    HWREG(SOC_CONTROL_REGS + 0x86C) |= 0x5;
+    HWREG(SOC_CONTROL_REGS + 0x868) &= 0xFFFFFFF8; /* (T16) (PHY1_RX_DV) pin set to gpio1_26 */
+    HWREG(SOC_CONTROL_REGS + 0x868) |= 0x5;
 
     Board_delay(10000);
 
