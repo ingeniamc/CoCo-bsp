@@ -389,7 +389,7 @@
  #include "am335x_amic110.h"
  #include "am335x_custom.h"
 +#include "am335x_coco.h"
-+#include "am335x_cocoV2.h"
++#include "am335x_cocov2.h"
  
  
  /* ========================================================================== */
