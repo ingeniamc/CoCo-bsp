@@ -414,13 +414,15 @@
  #else
  static boardIdString_t  gBoardIdStrTable[] =
 --- ./pdk_am335x_1_0_12/packages/ti/starterware/include/board.h	2018-10-06 04:29:04.000000000 +0200
-+++ /mnt/c/ti/./pdk_am335x_1_0_12/packages/ti/starterware/include/board.h	2018-12-11 09:25:30.852750300 +0100
-@@ -117,8 +117,10 @@
++++ /mnt/c/ti/./pdk_am335x_1_0_12/packages/ti/starterware/include/board.h	2018-12-12 11:52:51.216427000 +0100
+@@ -116,9 +116,11 @@
+     /**< Industrial communications Engine Version 2 */
      BOARD_AMIC110 = 0x9U,
      /**< AMIC110 ICE board */
-     BOARD_CUSTOM = 0x10U,
+-    BOARD_CUSTOM = 0x10U,
++    BOARD_CUSTOM = 0xAU,
 +    /**< AMIC110 ICE board */
-+    BOARD_COCO = 0x11U,
++    BOARD_COCO = 0xBU,
      /**< Any other custom board. */
 -    BOARD_MAX = BOARD_CUSTOM
 +    BOARD_MAX = BOARD_COCO
