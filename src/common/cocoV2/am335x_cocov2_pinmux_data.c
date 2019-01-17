@@ -324,6 +324,14 @@ static pinmuxPerCfg_t gGpio3PinCfg[] =
            ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
        ) \
     },
+    {
+       /* GPIOs3 -> gpio3[21] -> A14 */
+       PIN_MCASP0_AHCLKX, 21, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
     {PINMUX_INVALID_PIN}
 };
 
