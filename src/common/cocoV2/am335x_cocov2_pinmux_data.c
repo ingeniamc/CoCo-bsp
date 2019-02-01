@@ -471,6 +471,14 @@ static pinmuxPerCfg_t gGpio1PinCfg[] =
        ) \
     },
     {
+       /* GPIOs1 -> gpio1[7] -> T9 */
+       PIN_GPMC_AD7, 7, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_TYPE_SEL) & (~PIN_PULL_UD_EN & ~PIN_RX_ACTIVE)) \
+       ) \
+    },
+    {
        /* GPIOs1 -> gpio1[8] -> E18 */
        PIN_UART0_CTSN, 8, \
        ( \
