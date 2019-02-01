@@ -239,10 +239,12 @@ Board_STATUS Board_init(Board_initCfg cfg)
     if (ret != BOARD_SOK)
         return ret;
 
+#ifdef BOARD_INIT_DCAN
     if (cfg & BOARD_INIT_DCAN)
         ret = Board_dcanInit();
     if (ret != BOARD_SOK)
         return ret;
+#endif
 
     return ret;
 }
