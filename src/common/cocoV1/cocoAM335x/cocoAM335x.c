@@ -39,6 +39,7 @@
 #include "chipdb.h"
 #include "prcm.h"
 #include "board_cfg.h"
+#include "am335x_pinmux.h"
 
 /* EEPROM data on COCO 1.0A */
 char eepromData[I2C_EEPROM_RX_LENGTH] = {0x55, 0x33, 0xEE, 0x41, 0x33,
@@ -59,6 +60,28 @@ Board_STATUS Board_DDR3Init()
 Board_STATUS Board_PLLInit()
 {
     return BOARD_SOK;
+}
+
+/* Set the DCan configuration */
+Board_STATUS Board_dcanInit()
+{
+    Board_STATUS tBoardSt = S_PASS;
+
+    do
+    {
+        if (PINMUXModuleConfig(CHIPDB_MOD_ID_DCAN, 0U, NULL) != S_PASS)
+        {
+            tBoardSt = E_FAIL;
+            break;
+        }
+        if (PRCMModuleEnable(CHIPDB_MOD_ID_DCAN, 0U, 0U) != S_PASS)
+        {
+            tBoardSt = E_FAIL;
+            break;
+        }
+    } while(false);
+
+    return tBoardSt;
 }
 
 /* Flag indicating pinMux for ICSS (1U) or CPSW (0U) */
@@ -167,7 +190,7 @@ Board_STATUS Board_moduleClockInit()
     }
 
     /* RTCSS */
-     if(S_PASS == status)
+    if(S_PASS == status)
     {
         status = PRCMModuleEnable(CHIPDB_MOD_ID_RTCSS, 0U, 0U);
     }
@@ -213,6 +236,11 @@ Board_STATUS Board_init(Board_initCfg cfg)
 
     if (cfg & BOARD_INIT_ICSS_ETH_PHY)
         ret = Board_icssEthConfig();
+    if (ret != BOARD_SOK)
+        return ret;
+
+    if (cfg & BOARD_INIT_DCAN)
+        ret = Board_dcanInit();
     if (ret != BOARD_SOK)
         return ret;
 
