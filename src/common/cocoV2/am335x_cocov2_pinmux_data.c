@@ -471,6 +471,22 @@ static pinmuxPerCfg_t gGpio1PinCfg[] =
        ) \
     },
     {
+       /* GPIOs1 -> gpio1[5] -> V8 */
+       PIN_GPMC_AD5, 5, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
+    {
+       /* GPIOs1 -> gpio1[6] -> R9 */
+       PIN_GPMC_AD6, 6, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
+    {
        /* GPIOs1 -> gpio1[8] -> E18 */
        PIN_UART0_CTSN, 8, \
        ( \
@@ -523,6 +539,14 @@ static pinmuxPerCfg_t gGpio1PinCfg[] =
 
 static pinmuxPerCfg_t gGpio2PinCfg[] =
 {
+    {
+       /* GPIOs2 -> gpio2[3] -> T7 */
+       PIN_GPMC_OEN_REN, 7, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
+       ) \
+    },
     {
        /* GPIOs2 -> gpio2[5] -> T6 */
        PIN_GPMC_BE0N_CLE, 5, \
