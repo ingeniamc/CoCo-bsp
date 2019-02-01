@@ -549,7 +549,7 @@ static pinmuxPerCfg_t gGpio2PinCfg[] =
 {
     {
        /* GPIOs2 -> gpio2[3] -> T7 */
-       PIN_GPMC_OEN_REN, 7, \
+       PIN_GPMC_OEN_REN, 3, \
        ( \
            PIN_MODE(7) | \
            ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
