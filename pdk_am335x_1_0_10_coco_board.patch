@@ -20,8 +20,19 @@
  fi
  
  # PDK SoC and version
+--- ./pdk_am335x_1_0_10/packages/ti/board/board.h	2018-03-24 02:45:21.000000000 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/board.h	2019-02-01 12:30:57.059808200 +0100
+@@ -206,6 +206,8 @@
+ #define BOARD_INIT_EMIF_PINMUX          (1 << 15U)
+ /* Applies only to devices with DDR ECC support */
+ #define BOARD_INIT_DDR_ECC              (1 << 16U) 
++/* Flag to enable DCan interface */
++#define BOARD_INIT_DCAN                 (1 << 17U)
+ 
+ #define BOARD_INIT_DEFAULT              BOARD_INIT_ALL
+ 
 --- ./pdk_am335x_1_0_10/packages/ti/board/board_cfg.h	2018-03-24 02:45:21.000000000 +0100
-+++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/board_cfg.h	2018-12-11 09:21:15.936287100 +0100
++++ /mnt/c/ti/./pdk_am335x_1_0_10/packages/ti/board/board_cfg.h	2019-02-01 12:29:13.729646900 +0100
 @@ -44,6 +44,12 @@
  #elif defined (icev2AM335x)
  #include <ti/board/src/icev2AM335x/include/board_cfg.h>
