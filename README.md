@@ -19,16 +19,11 @@ Build the PDK, recommended command:
 
 
 ### Windows
-1. Install [Ubuntu](https://tutorials.ubuntu.com/tutorial/tutorial-ubuntu-on-windows#0) dependence 
+1. Install [Ubuntu](https://tutorials.ubuntu.com/tutorial/tutorial-ubuntu-on-windows#0) and [patch](http://gnuwin32.sourceforge.net/packages/patch.htm) dependence 
 2. Download and install PDK to default directory ( C:\ti )
-    EtherCAT - [SDK RTOS 04.01.00](http://processors.wiki.ti.com/index.php?title=Processor_SDK_RTOS_Release_Notes&oldid=231132)
-    - AM335x PDK 1.0.8
-    - XDC tools 3.32.01.22
-    - SYSBIOS 6.46.05.55
-    - NDK 2.25.01.11
-    - EDMA 2.12.05.29
-
-    [Download](http://software-dl.ti.com/processor-sdk-rtos/esd/AM335X/04_01_00_06/index_FDS.html)
+    - [SDK RTOS 04.01.00.06](http://software-dl.ti.com/processor-sdk-rtos/esd/AM335X/04_01_00_06/index_FDS.html)
+    - [SDK RTOS 04.03.00.05](http://software-dl.ti.com/processor-sdk-rtos/esd/AM335X/04_03_00_05/index_FDS.html)
+    - [SDK RTOS 05.01.00.11](http://software-dl.ti.com/processor-sdk-rtos/esd/AM335X/05_01_00_11/index_FDS.html)
     
 3. Open Ubuntu terminal and move to board path:
 
@@ -40,14 +35,17 @@ Build the PDK, recommended command:
     	# cp src/common/cocoV1/am335x_coco.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV1/am335x_coco.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV1/am335x_coco_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV1/sorte_cocoam335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoV1/cocoAM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
 		# cp src/common/cocoV2/am335x_cocov2.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV2/am335x_cocov2.h /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV2/am335x_cocov2_pinmux_data.c /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/starterware/board/am335x/ && cp src/common/cocoV2/sorte_cocov2am335x_app.cfg /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/drv/pruss/example/apps/sorte/src/ && cp -rf src/common/cocoV2/cocoV2AM335x /mnt/c/ti/pdk_am335x_1_0_8/packages/ti/board/src
 	    
-4. Replace <PATH TO BOARD> to the local path to board folder, and run next commands:
+5. Open a **windows command prompt** with permission to modify pdk installed folder (admin user), and move to pdk path folder, and run next commands:
 	
-	
-	    # cd /mnt/c/ti/pdk_am335x_1_0_8/
-	    # patch -p2 --binary < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch && patch -p2 < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch
+		# cd C:\ti\pdk_am335x_1_0_8\
+		# <PATH TO PATCH UTILITY>\patch.exe -p2 < <PATH TO REPO>/pdk_am335x_1_0_8_coco_board.patch
+
+	Example:
+
+		# "C:\Program Files (x86)\GnuWin32\bin\patch.exe" -p2 < C:\Users\MyUser\Documents\coco-bsp\pdk_am335x_1_0_12_coco_board.patch
 
     
-5. Open a **windows command prompt** and run:
+5. Rebuild the pdk:
 
 
 	    # cd C:\ti\pdk_am335x_1.0.8\packages && pdksetupenv.bat && gmake clean && gmake -j8
