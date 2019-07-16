@@ -511,3 +511,23 @@
  /** This is added to avoid lcd_device.h dependency **/
  typedef struct lcdDeviceBoardData lcdDeviceBoardData_t;
  
+
+--- ./pdk_am335x_1_0_12/packages/ti/drv/uart/src/v1/UART_v1.c	2018-10-06 04:45:37.000000000 +0200
++++ /mnt/c/ti/./pdk_am335x_1_0_12/packages/ti/drv/uart/src/v1/UART_v1.c	2019-07-15 14:57:59.442168400 +0200
+@@ -205,11 +205,15 @@
+     readIn = (int32_t)UARTCharGetNonBlocking(hwAttrs->baseAddr);
+ 
+     /* Receive chars until empty or done. */
+-    while ((size != (int32_t)(0)) && (readIn != (-((int32_t)1))))
++    while (size != (int32_t)(0))
+     {
+         /* If data mode is set to TEXT replace return with a newline. */
+         if (object->params.readDataMode == UART_DATA_TEXT)
+         {
++            if ((uint8_t)(readIn & 0xFF) == (uint8_t)0xFF)
++            {
++                break;
++            }
+             if ((uint8_t)readIn == ((uint8_t)('\r')))
+             {
+                 /* Echo character if enabled. */
