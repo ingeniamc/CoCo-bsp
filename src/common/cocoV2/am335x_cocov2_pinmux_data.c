@@ -603,6 +603,46 @@ static pinmuxPerCfg_t gGpio2PinCfg[] =
            ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
        ) \
     },
+    {
+       /* GPIOs2 -> gpio2[26] -> F17 */
+       PIN_MMC0_DAT3, 26, \
+       ( \
+           PIN_MODE(7) | \
+          ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+       ) \
+    },
+    {
+       /* GPIOs2 ->gpio2[27] -> F18 */
+       PIN_MMC0_DAT2, 27, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[28] -> G15 */
+       PIN_MMC0_DAT1, 28, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[29] -> G16 */
+       PIN_MMC0_DAT0, 29, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+       ) \
+    },
+    {
+       /* GPIOs2 -> gpio2[31] -> G18 */
+       PIN_MMC0_CMD, 31, \
+       ( \
+           PIN_MODE(7) | \
+           ((PIN_PULL_TYPE_SEL | PIN_RX_ACTIVE) & (~PIN_PULL_UD_EN)) \
+       ) \
+    },
     {PINMUX_INVALID_PIN}
 };
 
@@ -964,46 +1004,6 @@ static pinmuxPerCfg_t gMmcsd0PinCfg[] =
     {
        /* SDCARD -> mmc0_clk -> G17 */
        PIN_MMC0_CLK, 0, \
-       ( \
-           PIN_MODE(0) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
-       ) \
-    },
-    {
-       /* SDCARD -> mmc0_cmd -> G18 */
-       PIN_MMC0_CMD, 0, \
-       ( \
-           PIN_MODE(0) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
-       ) \
-    },
-    {
-       /* SDCARD -> mmc0_dat0 -> G16 */
-       PIN_MMC0_DAT0, 0, \
-       ( \
-           PIN_MODE(0) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
-       ) \
-    },
-    {
-       /* SDCARD -> mmc0_dat1 -> G15 */
-       PIN_MMC0_DAT1, 0, \
-       ( \
-           PIN_MODE(0) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
-       ) \
-    },
-    {
-       /* SDCARD -> mmc0_dat2 -> F18 */
-       PIN_MMC0_DAT2, 0, \
-       ( \
-           PIN_MODE(0) | \
-           ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
-       ) \
-    },
-    {
-       /* SDCARD -> mmc0_dat3 -> F17 */
-       PIN_MMC0_DAT3, 0, \
        ( \
            PIN_MODE(0) | \
            ((PIN_PULL_UD_EN | PIN_RX_ACTIVE) & (~PIN_PULL_TYPE_SEL)) \
